@@ -1,0 +1,10 @@
+.Admin-header-display{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Admin-header-display div{
+    font-size: 20px;
+    text-transform: uppercase;
+}

@@ -1,0 +1,12 @@
+.Admin-dashboard-display{
+    background-color: white;
+    height: 100vh;
+    
+}
+
+.Admin-dashboard-content{
+    border: 1px solid black;
+    width: 50%;
+    height: 40vh;
+    /* margin: 5%; */
+}
