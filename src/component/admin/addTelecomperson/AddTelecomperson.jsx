@@ -5,9 +5,11 @@ import 'reactjs-popup/dist/index.css';
 import { IoMdAddCircle } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MdEdit, MdDelete } from "react-icons/md";
+
 const AddTelecomperson = () => {
 
-    const data = [{ name: "v" }, { name: "g" }]
+    const data = [{ name: "v", email: "d" }, { name: "g", }]
 
     return (
         <div className='Admin-addTelecom-page'>
@@ -38,33 +40,45 @@ const AddTelecomperson = () => {
                         </Popup>
                     </div>
                 </div>
-                {
-                    data.map((item) => {
-                        return (
-                            <div className='Admin-telecom-person'>
-                                <div>{item.name}</div>
-                                <Popup
-                                    trigger={<div className='Admin-telecom-edit'> Edit</div>}
-                                    modal
-                                    closeOnDocumentClick
-                                >
-                                    {close => (
-                                        <div className="popup">
-                                            <h3>Edit Telecom</h3>
-                                            <div className='pop-form'>
-                                                <input type='' placeholder='password' required />
-                                                <input type='' placeholder='confirm password' required />
-                                            </div>
-                                            <div className="actions">
-                                                <button className="Admin-header-button-submit" onClick={() => { close(); }}>Edit</button>
-                                                <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
-                                            </div>
-                                        </div>
-                                    )}
-                                </Popup>
-                                <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sno</th>
+                            <th>name</th>
+                            <th>Email</th>
+                            <th colSpan={2}>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {
+                            data.map((item, index) => {
+                                return (<tr>
+                                    <td>{index + 1}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.email}</td>
+                                    <td className='Admin-tele-operation'>
                                     <Popup
-                                        trigger={<div className='Admin-telecom-delete'> Delete</div>}
+                                        trigger={<td className='Admin-telecom-edit'><MdEdit /></td>}
+                                        modal
+                                        closeOnDocumentClick
+                                    >
+                                        {close => (
+                                            <div className="popup">
+                                                <h3>Edit Telecom</h3>
+                                                <div className='pop-form'>
+                                                    <input type='' placeholder='password' required />
+                                                    <input type='' placeholder='confirm password' required />
+                                                </div>
+                                                <div className="actions">
+                                                    <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button>
+                                                    <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Popup>
+                                    <Popup
+                                        trigger={<td className='Admin-telecom-delete'> <MdDelete /></td>}
                                         modal
                                         closeOnDocumentClick
                                     >
@@ -78,12 +92,13 @@ const AddTelecomperson = () => {
                                             </div>
                                         )}
                                     </Popup>
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>)
+                            })
+                        }
 
-                        )
-                    })
-                }
+                    </tbody>
+                </table>
             </div>
             <ToastContainer
                 position="top-right"

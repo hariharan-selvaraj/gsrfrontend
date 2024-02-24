@@ -3,6 +3,7 @@
 }
 .Admin-display{
     display: flex;
+    gap: 10px;
 }
 
 .Admin-nav{
@@ -11,6 +12,6 @@
 
 .Admin-content{
     flex-basis:90%;
-    padding-left: 10px;
-    padding-right: 10px ;
+    /* padding-left: 10px;
+    padding-right: 10px ; */
 }
