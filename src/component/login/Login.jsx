@@ -1,12 +1,15 @@
 import React from 'react'
 import './login.css'
+import img from '../../png/gsr.png'
 const Login = () => {
 
 
 
     return (
         <div className='login-display'>
-            <div className='login-logo'>GSR</div>
+            <div className='login-logo'>
+                <img src={img} alt='logo' width={'70px'} height={'70px'} style={{borderRadius:"80px",mixBlendMode:"multiply"}}/>
+            </div>
             <div className='login-inner-display'>
                 <div className='login-content'>
                     <div className='login-form-display'>

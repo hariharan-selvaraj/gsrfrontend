@@ -1,12 +1,16 @@
 .Admin-main-display{
     background-color: rgba(0, 0, 255, 0.671);
-    /* padding-top: 10px; */
 }
 .Admin-display{
-    /* height: 100vh;    */
     display: flex;
 }
 
 .Admin-nav{
     flex-basis: 10%;
+}
+
+.Admin-content{
+    flex-basis:90%;
+    padding-left: 10px;
+    padding-right: 10px ;
 }
