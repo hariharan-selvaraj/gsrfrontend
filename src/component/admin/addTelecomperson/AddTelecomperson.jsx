@@ -9,7 +9,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 
 const AddTelecomperson = () => {
 
-    const data = [{ name: "v", email: "d" }, { name: "g", }]
+    const data = [{ name: "vsgdfhfjdtfhjfh", email: "dgdhfjdftdhdfj" }, { name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", }]
 
     return (
         <div className='Admin-addTelecom-page'>
@@ -40,7 +40,7 @@ const AddTelecomperson = () => {
                         </Popup>
                     </div>
                 </div>
-                <table>
+                <table className='table-container'>
                     <thead>
                         <tr>
                             <th>Sno</th>
