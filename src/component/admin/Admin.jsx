@@ -16,10 +16,8 @@ const Admin = () => {
         <div className='Admin-content'>
           
         <Routes>
-          <Route path='/admin/Dashboard' element={<Dashboard />} />
-          <Route path='/' element={<AddTelecomperson />} />
-
-  
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/addTele' element={<AddTelecomperson />} />  
         </Routes>
 
         </div>
