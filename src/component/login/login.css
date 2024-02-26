@@ -38,9 +38,9 @@
     letter-spacing: 0.2rem;
     text-transform: uppercase;
     font-weight: bold;
-    color:  blue;
+    color:  rgb(0, 0, 0);
     font-size: 3rem;
-    animation: colr 1s linear infinite;
+    /* animation: colr 1s linear infinite; */
 }
 @keyframes colr {
     0%,100%{

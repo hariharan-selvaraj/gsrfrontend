@@ -1,0 +1,28 @@
+.Telecom-nav-display{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    height: 81.5vh;
+    box-shadow: 2px 2px 5px white;
+}
+
+.Telecom-nav-display div{
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.Telecom-nav-display div:hover{
+    color: #030303;
+    border: 2px solid black;
+    background-color: white;
+    
+
+}

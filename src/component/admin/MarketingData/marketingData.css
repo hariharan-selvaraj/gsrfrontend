@@ -1,11 +1,8 @@
-.Admin-addTelecom-page {
+/* .Admin-marketing-page {
     background-color: white;
-    /* background-image: url('../../login/pexels-pixabay-417273.jpg'); */
-    /* opacity: 0.5; */
-    background-size: cover;
     width: 95%;
-    height: auto;
-    /* border-radius: 10px; */
+    height: 50vh;
+    border-radius: 10px;
     padding: 2%;
 }
 
@@ -102,9 +99,9 @@ table {
     padding: 1%;
     width: 100%;
     overflow-x: scroll;
-    border: 5px solid rgb(126, 126, 126);
+    border: 2px solid rgb(0, 94, 225);
     height: 50px;
-    /* border-radius: 10px; */
+    border-radius: 10px;
 }
 
 table th,
@@ -112,8 +109,7 @@ table td {
     border-radius: 10px;
     padding: 1%;   
     text-align: center;
-    border: #000508 solid 2px;
-    overflow: hidden;
+    border: #3498db solid 2px;
 }
 
 .Admin-tele-operation {
@@ -123,8 +119,10 @@ table td {
     gap: 10px;
 }
 
+
+
 @media screen and (max-width: 768px) {
-    .Admin-addTelecom-page {
+    .Admin-marketing-page {
         height: auto;
     }
     .Admin-telecom-person {
@@ -137,4 +135,20 @@ table td {
         overflow-x: auto;
         width: 100%;
     }
+} */
+
+.Admin-market-bg-green{
+    background-color: green;
+    color: white;
+    border-radius: 20px;
+    border: #000508 solid 2px;
+
+}
+
+.Admin-market-bg-red{
+    background-color: red;
+    border-radius: 20px;
+    color:white;
+    border: #000508 solid 2px;
+
 }

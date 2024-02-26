@@ -1,16 +1,16 @@
-.Admin-main-display{
+.Telecom-main-display{
     background-color: rgba(0, 0, 0, 0.671)
 }
-.Admin-display{
+.Telecom-display{
     display: flex;
     gap: 10px;
 }
 
-.Admin-nav{
+.Telecom-nav{
     flex-basis: 10%;
 }
 
-.Admin-content{
+.Telecom-content{
     flex-basis:90%;
     /* padding-left: 10px;
     padding-right: 10px ; */

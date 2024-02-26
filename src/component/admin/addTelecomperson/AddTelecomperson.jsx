@@ -9,13 +9,13 @@ import { MdEdit, MdDelete } from "react-icons/md";
 
 const AddTelecomperson = () => {
 
-    const data = [{ name: "vsgdfhfjdtfhjfh", email: "dgdhfjdftdhdfj" }, { name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", },{ name: "g", }]
+    const data = [{ name: "vin", email: "vin123@gmail.com", }, { name: "bala",email:"bala123@gmail.com" }]
 
     return (
         <div className='Admin-addTelecom-page'>
             <div className='Admin-telecom-details'>
                 <div className='Admin-telecom-header'>
-                    <lable>Telecom person</lable>
+                    <lable> users</lable>
                     <div>
                         <Popup
                             trigger={<div className='Admin-telecom-add'> <IoMdAddCircle size={'35px'} /></div>}
@@ -24,12 +24,15 @@ const AddTelecomperson = () => {
                         >
                             {close => (
                                 <div className="popup">
-                                    <h3>Add Telecom</h3>
+                                    <h3>Add Employee</h3>
                                     <div className='pop-form'>
                                         <input type='' placeholder='Name' required />
                                         <input type='' placeholder='Email' required />
                                         <input type='' placeholder='password' required />
                                         <input type='' placeholder='confirm password' required />
+                                        <input type='' placeholder='role type' required />
+
+
                                     </div>
                                     <div className="actions">
                                         <button className="Admin-header-button-submit" onClick={() => { close(); toast("Insert Successfull") }}>submit</button>

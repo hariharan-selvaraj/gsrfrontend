@@ -8,7 +8,7 @@ const Dashboard = () => {
         <div className='Admin-dashboard-part'>Telecom
           <div>2</div>
         </div>
-        <div className='Admin-dashboard-part'>user
+        <div className='Admin-dashboard-part'>Marketing data
           <div>3</div>
         </div>
         <div className='Admin-dashboard-part'>Admin

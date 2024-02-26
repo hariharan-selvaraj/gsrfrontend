@@ -5,6 +5,7 @@ import './admin.css'
 import { Outlet, Route, Routes } from 'react-router-dom'
 import AdminHeader from './header/AdminHeader'
 import AddTelecomperson from './addTelecomperson/AddTelecomperson'
+import MarketingData from './MarketingData/MarketingData'
 const Admin = () => {
   return (
     <div className='Admin-main-display'>
@@ -16,8 +17,10 @@ const Admin = () => {
         <div className='Admin-content'>
           
         <Routes>
-          <Route path='/admin/Dashboard' element={<Dashboard />} />
-          <Route path='/' element={<AddTelecomperson />} />
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/addTele' element={<AddTelecomperson />} />
+          <Route path='/marketing' element={<MarketingData />} />
+
 
   
         </Routes>
