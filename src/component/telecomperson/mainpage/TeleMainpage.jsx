@@ -6,6 +6,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdEdit, MdDelete } from "react-icons/md";
+import { IoMdRefresh } from "react-icons/io";
 
 const TeleMainPage = () => {
 
@@ -20,6 +21,10 @@ const TeleMainPage = () => {
   const [phoneno,setPhoneNo] =useState("");
   const [gender,setGender]=useState("");
   const [comment,setComments]=useState('');
+  const [isRotating, setRotating] = useState(false);
+
+
+  
 
   const handleAdd =()=>{
     const id=datas.length ? datas[datas.length-1].id+1 :1;
@@ -38,11 +43,25 @@ const TeleMainPage = () => {
     setMistake("")
   }
 
+  const handleRefresh = () => {
+    setRotating(true);
+    const data = JSON.parse(localStorage.getItem('marketing'))
+    setDatas(data)
+    setTimeout(() => {
+        setRotating(false);
+    }, 1000);
+}
+
+
   return (
     <div className='Admin-addTelecom-page'>
       <div className='Admin-telecom-details'>
         <div className='Admin-telecom-header'>
-          <lable> Marketing Data</lable>
+          <label> <h3>Marketing Data</h3></label>
+          <div className={`Admin-flex Admin-Refresh`} onClick={()=>handleRefresh()}>
+                        <IoMdRefresh size={'20px'} id='refresh' className={`${isRotating ? 'rotate-color' : 'rotate'}`} />
+                        Refresh
+                    </div>
           <div>
             <Popup
               trigger={<div className='Admin-telecom-add'> <IoMdAddCircle size={'35px'} /></div>}
@@ -83,7 +102,7 @@ const TeleMainPage = () => {
               <th >Option</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className={!isRotating ? 'Admin-display-refresh': 'Admin-hide-refresh'}>
 
             {
               datas.map((item, index) => {
@@ -93,12 +112,11 @@ const TeleMainPage = () => {
                   <td>{item.phoneno}</td>
                   <td>{item.gender}</td>
                   <td>{item.comment}</td>
-
-                  <td className={item.status ==='true' ?"Admin-market-bg-green":"Admin-market-bg-red"}><div></div>{item.status}</td>
+                  <td ><div className={String(item.status) =='true' ?"Admin-market-bg-green":"Admin-market-bg-red"}>{item.status}</div></td>
 
                   <td className='Admin-tele-operation'>
                     <Popup
-                      trigger={<td className='Admin-telecom-edit'><MdEdit /></td>}
+                      trigger={<div className='Admin-telecom-edit'><MdEdit /></div>}
                       modal
                       closeOnDocumentClick
                     >

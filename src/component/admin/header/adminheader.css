@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     color: white;
+    background-color: #21a5fd;
 }
 .Admin-header-display div{
     font-size: 20px;

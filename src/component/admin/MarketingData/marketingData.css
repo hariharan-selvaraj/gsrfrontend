@@ -137,18 +137,90 @@ table td {
     }
 } */
 
-.Admin-market-bg-green{
+.Admin-market-bg-green {
     background-color: green;
     color: white;
     border-radius: 20px;
     border: #000508 solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    height: 30px;
+}
+
+.Admin-market-bg-red {
+    background-color: red;
+    border-radius: 20px;
+    color: white;
+    border: #000508 solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 30px;
 
 }
 
-.Admin-market-bg-red{
-    background-color: red;
-    border-radius: 20px;
-    color:white;
-    border: #000508 solid 2px;
+.Admin-Refresh {
+    color: blue;
+    cursor: pointer;
+}
 
+.Admin-Refresh .rotate {
+    animation: rotateAnimation 1s linear;
+    color: #000 !important;
+}
+
+.rotate-color {
+    color: #000 !important;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.Admin-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Admin-search {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.Admin-label {
+    border: 1px solid grey;
+    padding: 2%;
+    background-color: rgb(16, 144, 248);
+    cursor: pointer;
+}
+
+.Admin-label:hover {
+    background-color: rgb(16, 248, 237);
+    color: white;
+}
+
+.Admin-search input {
+    width: 300px;
+    height: 5vh;
+}
+
+.Admin-display-refresh{
+    visibility: visible;
+}
+
+.Admin-hide-refresh{
+    visibility: hidden;
+    display: none;
 }

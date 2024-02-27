@@ -57,7 +57,7 @@
 
 .Admin-telecom-add {
     padding: 0.1%;
-    margin: 5%;
+    /* margin: 5%; */
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -101,21 +101,35 @@ table {
     margin: 1%;
     padding: 1%;
     width: 100%;
-    overflow-x: scroll;
-    border: 5px solid rgb(126, 126, 126);
-    height: 50px;
+    overflow-x: auto;
+    border-collapse: collapse;
+    /* border-bottom: 5px solid rgb(126, 126, 126); */
+    max-height: 10px;
     /* border-radius: 10px; */
+
 }
 
 table th,
 table td {
-    border-radius: 10px;
-    padding: 1%;   
+    /* border-radius: 10px; */
+    /* padding: 1%;    */
+    margin: 1%;
     text-align: center;
-    border: #000508 solid 2px;
     overflow: hidden;
 }
+table th{
+    text-transform: uppercase;
+    padding: 1%;
+}
+table tr{
+    border-bottom: #000508 solid 2px;
+}
+table tbody tr:hover{
+    /* border-; */
+    background-color: #2e6c9677;
+    color: white;
 
+}
 .Admin-tele-operation {
     display: flex;
     align-items: center;

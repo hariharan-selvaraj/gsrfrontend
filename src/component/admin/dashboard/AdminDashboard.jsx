@@ -14,9 +14,9 @@ const Dashboard = () => {
         <div className='Admin-dashboard-part'>Admin
           <div>3</div>
         </div>
-        <div className='Admin-dashboard-part'>Report
+        {/* <div className='Admin-dashboard-part'>Report
           <div>5</div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
