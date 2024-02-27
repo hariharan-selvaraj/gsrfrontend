@@ -65,7 +65,7 @@ const MarketingData = () => {
     }
 
     const handleEdit = (id) => {
-        const editedData = datas.map((item) => item.id === Number(id) ? { ...item, status: 'true', correction: "", phoneno: phoneno, name: name, gender: gender } : item)
+        const editedData = datas.map((item) => item.id === Number(id) ? { ...item, status: 'true', correction: "", phoneno: phoneno, name: name, gender: gender,comment:comment } : item)
         setDatas(editedData)
         localStorage.setItem('marketing', JSON.stringify(editedData))
         setName("")
@@ -81,7 +81,7 @@ const MarketingData = () => {
             <div className='Admin-telecom-details'>
                 <div className='Admin-telecom-header'>
                     <label><h2>Marketing User Data </h2></label>
-                    <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input /></div>
+                    <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input type='text' placeholder='customer name'/></div>
                     <div className={`Admin-flex Admin-Refresh`} onClick={handleRefresh}>
                         <IoMdRefresh size={'20px'} id='refresh' className={`${isRotating ? 'rotate-color' : 'rotate'}`} />
                         Refresh
@@ -125,8 +125,12 @@ const MarketingData = () => {
                                                         <input type='text' placeholder='name' value={name} onChange={(e) => setName(e.target.value)} required />
                                                         <input type='text' placeholder='phone no' value={phoneno} onChange={(e) => setPhoneNo(e.target.value)} required />
                                                         <input type='text' placeholder='comments' value={comment} onChange={(e) => setComments(e.target.value)} required />
-                                                        <input type='text' placeholder='gender' value={gender} onChange={(e) => setGender(e.target.value)} required />
-
+                                                        {/* <input type='text' placeholder='gender' value={gender} onChange={(e) => setGender(e.target.value)} required /> */}
+                                                        <select>
+                                                            <option>male</option>
+                                                            <option>female</option>
+                                                            <option>others</option>
+                                                        </select>
                                                     </div>
                                                     <div className="actions">
                                                         <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully'); handleEdit(item.id) }}>Edit</button>

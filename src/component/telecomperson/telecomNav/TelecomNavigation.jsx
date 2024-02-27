@@ -8,7 +8,7 @@ const TelecomNavigation = () => {
   return (
     <div className='Telecom-nav-display'>
         <div onClick={()=>{nav('/telecom');setIsTrue(0)}} className={isTrue===0 ? "Admin-navigation-cn":""}>Activity</div>
-        <div onClick={()=>{nav('/telecom/profile');setIsTrue(1)}} className={isTrue===1 ? "Admin-navigation-cn":""}>Settings</div>
+        <div onClick={()=>{nav('/telecom/profile');setIsTrue(1)}} className={isTrue===1 ? "Admin-navigation-cn":""}>Personal Info</div>
     </div>
   )
 }

@@ -34,7 +34,7 @@ const AddTelecomperson = () => {
             <div className='Admin-telecom-details'>
                 <div className='Admin-telecom-header'>
                     <label><h2>Users</h2> </label>
-                    <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input /></div>
+                    <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input type='text' placeholder='Name'/></div>
                     <div className={`Admin-flex Admin-Refresh`} onClick={()=>handleRefresh()}>
                         <IoMdRefresh size={'20px'} id='refresh' className={`${isRotating ? 'rotate-color' : 'rotate'}`} />
                         Refresh

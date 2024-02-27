@@ -62,7 +62,7 @@ const Login = () => {
             <div className='login-inner-display'>
                 <div className='login-content'>
                     <div className='login-form-display'>
-                        <label className='login-form-name'>Welcome Back </label>
+                        <label className='login-form-name'>Welcome</label>
 
                         <input type='email' placeholder='Email' value={username} onChange={(e) => setUsername(e.target.value)} required />
 
