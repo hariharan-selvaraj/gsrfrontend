@@ -7,10 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdEdit, MdDelete } from "react-icons/md";
 import { IoMdRefresh } from "react-icons/io";
+import { RiLockPasswordFill } from "react-icons/ri";
+
 
 const AddTelecomperson = () => {
 
-    const data = [{ name: "vin", email: "vin123@gmail.com", }, { name: "bala",email:"bala123@gmail.com" }]
+    const data = [{ name: "vin", email: "vin123@gmail.com" }, { name: "bala",email:"bala123@gmail.com" }]
 
     const [isRotating, setRotating] = useState(false);
 
@@ -72,7 +74,7 @@ const AddTelecomperson = () => {
                             <th>Sno</th>
                             <th>name</th>
                             <th>Email</th>
-                            <th colSpan={2}>Option</th>
+                            <th colSpan={3}>Option</th>
                         </tr>
                     </thead>
                     <tbody className={!isRotating  ? "Admin-display-refresh":"Admin-hide-refresh"}>
@@ -98,6 +100,26 @@ const AddTelecomperson = () => {
                                                 </div>
                                                 <div className="actions">
                                                     <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button>
+                                                    <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Popup>
+                                    <Popup
+                                        trigger={<div className='Admin-telecom-pass'><RiLockPasswordFill /></div>}
+                                        modal
+                                        closeOnDocumentClick
+                                    >
+                                        {close => (
+                                            <div className="popup">
+                                                <h3>Password</h3>
+                                                <div className='pop-form'>
+                                                   {item.email}
+                                                   <br />
+                                                   {'password'}
+                                                </div>
+                                                <div className="actions">
+                                                    {/* <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button> */}
                                                     <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
                                                 </div>
                                             </div>
