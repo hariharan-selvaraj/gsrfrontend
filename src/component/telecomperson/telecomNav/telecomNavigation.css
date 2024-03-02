@@ -1,0 +1,31 @@
+.Telecom-nav-display{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(194, 184, 184);
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    height: 81.5vh;
+    box-shadow: 2px 2px 5px rgb(233, 231, 231);
+    background-color: white;
+}
+
+.Telecom-nav-display div{
+    color: #141313;
+    cursor: pointer;
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 1%;
+
+}
+.Telecom-nav-display div:hover{
+    color: #fffcfc;
+    border: 2px solid rgba(72, 118, 177, 0.507);
+    background-color: rgba(180, 68, 184, 0.514);
+    
+
+}

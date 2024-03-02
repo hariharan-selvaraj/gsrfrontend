@@ -1,22 +1,18 @@
 import React from 'react'
-import './adminheader.css'
+import './telecomHeader.css'
 import { IoIosLogOut } from "react-icons/io";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import img from '../../../png/gsr.png'
 import { useNavigate } from 'react-router-dom';
-const AdminHeader = () => {
-
+const TelecomHeader = () => {
     const nav =useNavigate()
-
-    
-
     return (
-        <div className='Admin-header-display'>
-          <div className='admin-logo'>
+        <div className='Telecom-header-display'>
+          <div className='Telecom-logo'>
                 <img src={img} alt='logo' width={'70px'} height={'70px'} style={{borderRadius:"80px"}}/>
             </div>
-            <div>Admin</div>
+            <div>Telecom Member</div>
             <Popup
                 trigger={<div> <IoIosLogOut size={35} /></div>}
                 modal
@@ -26,8 +22,8 @@ const AdminHeader = () => {
                     <div className="popup">
                         <h2>Do you Want to logout?</h2>
                         <div className="actions">
-                            <button className="admin-header-button" onClick={() => {  close();nav('/') }}>Yes</button>
-                            <button className="admin-header-button" onClick={close}>No</button>
+                            <button className="Telecom-header-button" onClick={() => {  close();nav('/'); }}>Yes</button>
+                            <button className="Telecom-header-button" onClick={close}>No</button>
                         </div>
                     </div>
                 )}
@@ -36,4 +32,4 @@ const AdminHeader = () => {
     )
 }
 
-export default AdminHeader
+export default TelecomHeader

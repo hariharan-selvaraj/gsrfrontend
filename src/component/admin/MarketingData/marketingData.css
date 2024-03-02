@@ -1,10 +1,7 @@
-.Admin-addTelecom-page {
+/* .Admin-marketing-page {
     background-color: white;
-    /* background-image: url('../../login/pexels-pixabay-417273.jpg'); */
-    /* opacity: 0.5; */
-    background-size: cover;
     width: 95%;
-    height: auto;
+    height: 50vh;
     border-radius: 10px;
     padding: 2%;
 }
@@ -57,7 +54,7 @@
 
 .Admin-telecom-add {
     padding: 0.1%;
-    /* margin: 5%; */
+    margin: 5%;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -101,35 +98,20 @@ table {
     margin: 1%;
     padding: 1%;
     width: 100%;
-    overflow-x: auto;
-    border-collapse: collapse;
-    /* border-bottom: 5px solid rgb(126, 126, 126); */
-    max-height: 10px;
-    /* border-radius: 10px; */
-
+    overflow-x: scroll;
+    border: 2px solid rgb(0, 94, 225);
+    height: 50px;
+    border-radius: 10px;
 }
 
 table th,
 table td {
-    /* border-radius: 10px; */
-    /* padding: 1%;    */
-    margin: 1%;
+    border-radius: 10px;
+    padding: 1%;   
     text-align: center;
-    overflow: hidden;
+    border: #3498db solid 2px;
 }
-table th{
-    text-transform: uppercase;
-    padding: 1%;
-}
-table tr{
-    border-bottom: #000508 solid 2px;
-}
-table tbody tr:hover{
-    /* border-; */
-    background-color: #2e6c9677;
-    color: white;
 
-}
 .Admin-tele-operation {
     display: flex;
     align-items: center;
@@ -137,8 +119,10 @@ table tbody tr:hover{
     gap: 10px;
 }
 
+
+
 @media screen and (max-width: 768px) {
-    .Admin-addTelecom-page {
+    .Admin-marketing-page {
         height: auto;
     }
     .Admin-telecom-person {
@@ -151,4 +135,97 @@ table tbody tr:hover{
         overflow-x: auto;
         width: 100%;
     }
+} */
+
+.Admin-market-bg-green {
+    background-color: green;
+    color: white;
+    border-radius: 20px;
+    border: #000508 solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    height: 30px;
+}
+
+.Admin-market-bg-red {
+    background-color: red;
+    border-radius: 20px;
+    color: white;
+    border: #000508 solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 30px;
+
+}
+
+.Admin-Refresh {
+    color: blue;
+    cursor: pointer;
+}
+
+.Admin-Refresh .rotate {
+    animation: rotateAnimation 1s linear;
+    color: #000 !important;
+}
+
+.rotate-color {
+    color: #000 !important;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.Admin-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Admin-search {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.Admin-label {
+    border: 1px solid grey;
+    padding: 2%;
+    background-color: rgb(16, 144, 248);
+    cursor: pointer;
+}
+
+.Admin-label:hover {
+    background-color: rgb(3, 201, 228);
+    color: white;
+}
+
+.Admin-search input {
+    width: 300px;
+    height: 5vh;
+}
+
+.Admin-display-refresh{
+    visibility: visible;
+}
+
+.Admin-hide-refresh{
+    visibility: hidden;
+    display: none;
+}
+
+.pop-form select{
+    width: 100%;
+    height: 5vh;
 }

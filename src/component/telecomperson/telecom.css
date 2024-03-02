@@ -1,0 +1,23 @@
+.Telecom-main-display{
+    background-color: rgba(158, 140, 140, 0.671);
+    
+    /* background-image: url('../login/pexels-aleksandar-pasaric-2603464.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+.Telecom-display{
+    display: flex;
+    gap: 10px;
+}
+
+.Telecom-nav{
+    flex-basis: 10%;
+}
+
+.Telecom-content{
+    margin: 1%;
+    flex-basis:90%;
+    /* opacity: 90%; */
+    /* padding-left: 10px;
+    padding-right: 10px ; */
+}

@@ -1,5 +1,8 @@
 .Admin-main-display{
-    background-color: rgba(0, 0, 255, 0.671);
+    background-color: rgba(131, 116, 116, 0.671);
+    /* background-image: url('../login/pexels-pixabay-417273.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; */
 }
 .Admin-display{
     display: flex;
@@ -11,7 +14,7 @@
 }
 
 .Admin-content{
+    margin: 1%;
     flex-basis:90%;
-    /* padding-left: 10px;
-    padding-right: 10px ; */
+    opacity: 90%;
 }
