@@ -10,11 +10,11 @@
 }
 
 .Admin-nav{
-    flex-basis: 10%;
+    flex-basis: 15%;
 }
 
 .Admin-content{
     margin: 1%;
-    flex-basis:90%;
+    flex-basis:85%;
     opacity: 90%;
 }

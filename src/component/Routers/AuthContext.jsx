@@ -4,7 +4,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    const [isAuthenticate,setIsAuthenticate] =useState( true);
+    const [isAuthenticate,setIsAuthenticate] =useState(true);
     const Authlogin =()=>{
         
     }
