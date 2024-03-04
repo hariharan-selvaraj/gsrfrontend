@@ -7,6 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdEdit, MdDelete } from "react-icons/md";
 import { IoMdRefresh } from "react-icons/io";
+import { BsDownload } from "react-icons/bs";
+
 
 
 const MarketingData = () => {
@@ -82,6 +84,22 @@ const MarketingData = () => {
                 <div className='Admin-telecom-header'>
                     <label><h2>Marketing User Data </h2></label>
                     <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input type='text' placeholder='customer name'/></div>
+                    <Popup
+                                            trigger={<div className='Admin-telecom-download'>  <BsDownload /></div>}
+                                            modal
+                                            closeOnDocumentClick
+                                        >
+                                            {close => (
+                                                <div className="popup">
+                                                    <h2>Do you Want to Download?</h2>
+                                                    <div className="actions">
+                                                        <button className="admin-header-button" onClick={() => { close(); }}>Yes</button>
+                                                        <button className="admin-header-button" onClick={close}>No</button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Popup>
+                        
                     <div className={`Admin-flex Admin-Refresh`} onClick={handleRefresh}>
                         <IoMdRefresh size={'20px'} id='refresh' className={`${isRotating ? 'rotate-color' : 'rotate'}`} />
                         Refresh
@@ -126,10 +144,12 @@ const MarketingData = () => {
                                                         <input type='text' placeholder='phone no' value={phoneno} onChange={(e) => setPhoneNo(e.target.value)} required />
                                                         <input type='text' placeholder='comments' value={comment} onChange={(e) => setComments(e.target.value)} required />
                                                         {/* <input type='text' placeholder='gender' value={gender} onChange={(e) => setGender(e.target.value)} required /> */}
-                                                        <select>
-                                                            <option>male</option>
-                                                            <option>female</option>
-                                                            <option>others</option>
+                                                        <select value={gender} onChange={(e)=>setGender(e.target.value)}>
+                                                        <option value={""}>select Gender</option>
+
+                                                            <option value={"male"}>male</option>
+                                                            <option value={"female"}>female</option>
+                                                            <option value={"other"}>others</option>
                                                         </select>
                                                     </div>
                                                     <div className="actions">

@@ -157,7 +157,7 @@ const Login = () => {
     }
 
   return (
-    <div className='admin'>
+    <div className='login'>
         <div className='img-cont'>
          <img src={Logo}/>            
         </div>
