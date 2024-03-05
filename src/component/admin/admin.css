@@ -1,20 +1,27 @@
 .Admin-main-display{
-    background-color: rgba(131, 116, 116, 0.671);
+    background-color: #d1d5db;
     /* background-image: url('../login/pexels-pixabay-417273.jpg');
     background-repeat: no-repeat;
     background-size: cover; */
-}
-.Admin-display{
     display: flex;
-    gap: 10px;
+    height: 100vh;
 }
 
-.Admin-nav{
+
+/* .Admin-nav{
     flex-basis: 15%;
-}
+
+} */
 
 .Admin-content{
     margin: 1%;
-    flex-basis:85%;
+    width: 85%;
     opacity: 90%;
+}
+
+@media (max-width: 768px)
+{
+    .Admin-content{
+        width:100%;
+    }
 }

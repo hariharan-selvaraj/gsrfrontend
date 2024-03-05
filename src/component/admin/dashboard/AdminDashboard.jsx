@@ -1,23 +1,21 @@
 import React from 'react'
 import './admindashboard.css'
-const Dashboard = () => {
+import AdminHeader from '../header/AdminHeader'
+import DashboardCard from './DashboardCard'
+import { FaHeadset } from "react-icons/fa6";
+import { SiMarketo } from "react-icons/si";
+import { GrUserAdmin } from "react-icons/gr";
+const Dashboard = ({sideBar,handleClick}) => {
   return (
-    <div className='Admin-dashboard-display'>
+    <div className='wrapper-container'>
+    <AdminHeader handleClick={handleClick} title="DashBoard"/>
+    <div className='card-container'>
+    <DashboardCard title="Telecom" icon={<FaHeadset/>} count={5}/>
+    <DashboardCard title="Marketing Data" icon={<SiMarketo/>} count={6}/>
+    <DashboardCard title="Admin" icon={<GrUserAdmin/>} count={2}/>
+    </div>
 
-      <div className='Admin-dashboard-content'>
-        <div className='Admin-dashboard-part'>Telecom
-          <div>2</div>
-        </div>
-        <div className='Admin-dashboard-part'>Marketing data
-          <div>3</div>
-        </div>
-        <div className='Admin-dashboard-part'>Admin
-          <div>3</div>
-        </div>
-        {/* <div className='Admin-dashboard-part'>Report
-          <div>5</div>
-        </div> */}
-      </div>
+
     </div>
   )
 }

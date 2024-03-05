@@ -6,12 +6,13 @@ import { IoMdAddCircle } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdEdit, MdDelete } from "react-icons/md";
-import { IoMdRefresh } from "react-icons/io";
-import { BsDownload } from "react-icons/bs";
+
+import AdminHeader from '../header/AdminHeader';
+import { BiSolidFileExport } from "react-icons/bi";
 
 
 
-const MarketingData = () => {
+const MarketingData = ({ handleClick }) => {
 
     const [datas, setDatas] = useState(JSON.parse(localStorage.getItem('marketing')) || []);
 
@@ -67,7 +68,7 @@ const MarketingData = () => {
     }
 
     const handleEdit = (id) => {
-        const editedData = datas.map((item) => item.id === Number(id) ? { ...item, status: 'true', correction: "", phoneno: phoneno, name: name, gender: gender,comment:comment } : item)
+        const editedData = datas.map((item) => item.id === Number(id) ? { ...item, status: 'true', correction: "", phoneno: phoneno, name: name, gender: gender, comment: comment } : item)
         setDatas(editedData)
         localStorage.setItem('marketing', JSON.stringify(editedData))
         setName("")
@@ -79,13 +80,15 @@ const MarketingData = () => {
 
 
     return (
-        <div className='Admin-addTelecom-page'>
-            <div className='Admin-telecom-details'>
-                <div className='Admin-telecom-header'>
-                    <label><h2>Marketing User Data </h2></label>
-                    <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input type='text' placeholder='customer name'/></div>
+        <div className='wrapper-container'>
+            <AdminHeader handleClick={handleClick} title="MARKETING" />
+            <div className='user-info'>
+            <div className='user-operations'>
+                    <input type='text' placeholder='Search By Customer Name'></input>
+                    <div className='user-op' >
+                  
                     <Popup
-                                            trigger={<div className='Admin-telecom-download'>  <BsDownload /></div>}
+                                            trigger={  <span><BiSolidFileExport/> Export Data</span>}
                                             modal
                                             closeOnDocumentClick
                                         >
@@ -100,100 +103,87 @@ const MarketingData = () => {
                                             )}
                                         </Popup>
                         
-                    <div className={`Admin-flex Admin-Refresh`} onClick={handleRefresh}>
-                        <IoMdRefresh size={'20px'} id='refresh' className={`${isRotating ? 'rotate-color' : 'rotate'}`} />
-                        Refresh
                     </div>
-                </div>
-                <table className='table-container'>
-                    <thead>
-                        <tr>
-                            <th>Sno</th>
-                            <th>customer name</th>
-                            <th>telecom name</th>
-                            <th>comments</th>
-                            <th>status</th>
-                            <th>Correction</th>
+            </div>
+            </div>
+            <div className='table-cont'>
+            <table className='table-container'>
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>customer name</th>
+                        <th>telecom name</th>
+                        <th>comments</th>
+                        <th>status</th>
+                        <th>Correction</th>
 
-                            <th colSpan={2}>Option</th>
-                        </tr>
-                    </thead>
-                    <tbody className={!isRotating  ? "Admin-display-refresh":"Admin-hide-refresh"}>
+                        <th colSpan={2}>Option</th>
+                    </tr>
+                </thead>
+                <tbody className={!isRotating ? "Admin-display-refresh" : "Admin-hide-refresh"}>
 
-                        {
-                            datas.map((item, index) => {
-                                return (<tr key={item.id}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.telecom ? item.telecom : "vin"}</td>
-                                    <td>{item.comment}</td>
-                                    <td ><div className={item.status =='true' ?"Admin-market-bg-green":"Admin-market-bg-red"}>{item.status}</div></td>
-                                    <td>{item.correction}</td>
+                    {
+                        datas.map((item, index) => {
+                            return (<tr key={item.id}>
+                                <td>{index + 1}</td>
+                                <td>{item.name}</td>
+                                <td>{item.telecom ? item.telecom : "vin"}</td>
+                                <td>{item.comment}</td>
+                                <td ><div className={item.status == 'true' ? "Admin-market-bg-green" : "Admin-market-bg-red"}>{item.status}</div></td>
+                                <td>{item.correction}</td>
 
-                                    <td className='Admin-tele-operation'>
-                                        <Popup
-                                            trigger={<div className='Admin-telecom-edit'><MdEdit onClick={() =>{ handlePencil(item.id);handlePencil(item.id)}} /></div>}
-                                            modal
-                                            closeOnDocumentClick={false}
-                                        >
-                                            {close => (
-                                                <div className="popup">
-                                                    <h3>Edit Telecom</h3>
-                                                    <div className='pop-form'>
-                                                        <input type='text' placeholder='name' value={name} onChange={(e) => setName(e.target.value)} required />
-                                                        <input type='text' placeholder='phone no' value={phoneno} onChange={(e) => setPhoneNo(e.target.value)} required />
-                                                        <input type='text' placeholder='comments' value={comment} onChange={(e) => setComments(e.target.value)} required />
-                                                        {/* <input type='text' placeholder='gender' value={gender} onChange={(e) => setGender(e.target.value)} required /> */}
-                                                        <select value={gender} onChange={(e)=>setGender(e.target.value)}>
+                                <td className='Admin-tele-operation'>
+                                    <Popup
+                                        trigger={<div className='Admin-telecom-edit'><MdEdit onClick={() => { handlePencil(item.id); handlePencil(item.id) }} /></div>}
+                                        modal
+                                        closeOnDocumentClick={false}
+                                    >
+                                        {close => (
+                                            <div className="popup">
+                                                <h3>Edit Telecom</h3>
+                                                <div className='pop-form'>
+                                                    <input type='text' placeholder='name' value={name} onChange={(e) => setName(e.target.value)} required />
+                                                    <input type='text' placeholder='phone no' value={phoneno} onChange={(e) => setPhoneNo(e.target.value)} required />
+                                                    <input type='text' placeholder='comments' value={comment} onChange={(e) => setComments(e.target.value)} required />
+                                                    {/* <input type='text' placeholder='gender' value={gender} onChange={(e) => setGender(e.target.value)} required /> */}
+                                                    <select value={gender} onChange={(e) => setGender(e.target.value)}>
                                                         <option value={""}>select Gender</option>
 
-                                                            <option value={"male"}>male</option>
-                                                            <option value={"female"}>female</option>
-                                                            <option value={"other"}>others</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="actions">
-                                                        <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully'); handleEdit(item.id) }}>Edit</button>
-                                                        <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
-                                                    </div>
+                                                        <option value={"male"}>male</option>
+                                                        <option value={"female"}>female</option>
+                                                        <option value={"other"}>others</option>
+                                                    </select>
                                                 </div>
-                                            )}
-                                        </Popup>
-                                        <Popup
-                                            trigger={<div className='Admin-telecom-delete'> <MdDelete /></div>}
-                                            modal
-                                            closeOnDocumentClick
-                                        >
-                                            {close => (
-                                                <div className="popup">
-                                                    <h2>Do you Want to Delete?</h2>
-                                                    <div className="actions">
-                                                        <button className="admin-header-button" onClick={() => { close(); changedelete(item.id) }}>Yes</button>
-                                                        <button className="admin-header-button" onClick={close}>No</button>
-                                                    </div>
+                                                <div className="actions">
+                                                    <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully'); handleEdit(item.id) }}>Edit</button>
+                                                    <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
                                                 </div>
-                                            )}
-                                        </Popup>
-                                    </td>
-                                </tr>)
-                            })
-                        }
+                                            </div>
+                                        )}
+                                    </Popup>
+                                    <Popup
+                                        trigger={<div className='Admin-telecom-delete'> <MdDelete /></div>}
+                                        modal
+                                        closeOnDocumentClick
+                                    >
+                                        {close => (
+                                            <div className="popup">
+                                                <h2>Do you Want to Delete?</h2>
+                                                <div className="actions">
+                                                    <button className="admin-header-button" onClick={() => { close(); changedelete(item.id) }}>Yes</button>
+                                                    <button className="admin-header-button" onClick={close}>No</button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Popup>
+                                </td>
+                            </tr>)
+                        })
+                    }
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </div>
     )
 }

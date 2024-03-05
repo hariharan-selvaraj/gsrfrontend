@@ -108,6 +108,7 @@ const TeleMainPage = () => {
               }
               modal
               closeOnDocumentClick
+              ref={popupRef}
             >
               {(close) => (
                 <div className="popup">

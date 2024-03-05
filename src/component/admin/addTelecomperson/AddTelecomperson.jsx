@@ -8,11 +8,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdEdit, MdDelete } from "react-icons/md";
 import { IoMdRefresh } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { RiUserAddFill } from "react-icons/ri";
+import { IoMdEye } from "react-icons/io";
+import { FaBars } from "react-icons/fa6";
+import Admin from '../Admin';
+import AdminHeader from '../header/AdminHeader';
 
+const AddTelecomperson = ({ sidebar, handleClick }) => {
 
-const AddTelecomperson = () => {
-
-    const data = [{ name: "vin", email: "vin123@gmail.com" }, { name: "bala",email:"bala123@gmail.com" }]
+    const data = [{ name: "vin", email: "vin123@gmail.com" ,roltype:1}, { name: "bala", email: "bala123@gmail.com",roltype:0}]
 
     const [isRotating, setRotating] = useState(false);
 
@@ -31,19 +35,16 @@ const AddTelecomperson = () => {
     }
 
 
-    return (
-        <div className='Admin-addTelecom-page'>
-            <div className='Admin-telecom-details'>
-                <div className='Admin-telecom-header'>
-                    <label><h2>Users</h2> </label>
-                    <div className='Admin-flex Admin-search'><label className='Admin-label'>Search</label> <input type='text' placeholder='Name'/></div>
-                    <div className={`Admin-flex Admin-Refresh`} onClick={()=>handleRefresh()}>
-                        <IoMdRefresh size={'20px'} id='refresh' className={`${isRotating ? 'rotate-color' : 'rotate'}`} />
-                        Refresh
-                    </div>
-                    <div>
+
+    return (<div >
+        <div className='wrapper-container'>
+            <AdminHeader handleClick={handleClick} title="USERS" />
+            <div className='user-info'>
+                <div className='user-operations'>
+                    <input type='text' placeholder='Search By Name'></input>
+                    <div className='user-op'>
                         <Popup
-                            trigger={<div className='Admin-telecom-add'> <IoMdAddCircle size={'35px'} /></div>}
+                            trigger={<span><RiUserAddFill /> Add User</span>}
                             modal
                             closeOnDocumentClick
                         >
@@ -55,7 +56,12 @@ const AddTelecomperson = () => {
                                         <input type='' placeholder='Email' required />
                                         <input type='' placeholder='password' required />
                                         <input type='' placeholder='confirm password' required />
-                                        <input type='' placeholder='role type' required />
+                                        <select>
+                                            <option value={""}>Select Role Type</option>
+                                            <option value={0}>Admin</option>
+                                            <option value={1}>Accountant</option>
+                                            <option value={2}>Telecom</option>
+                                        </select>
 
 
                                     </div>
@@ -68,16 +74,17 @@ const AddTelecomperson = () => {
                         </Popup>
                     </div>
                 </div>
-                <table className='table-container'>
-                    <thead>
-                        <tr>
-                            <th>Sno</th>
-                            <th>name</th>
-                            <th>Email</th>
-                            <th colSpan={3}>Option</th>
-                        </tr>
-                    </thead>
-                    <tbody className={!isRotating  ? "Admin-display-refresh":"Admin-hide-refresh"}>
+            </div>
+            <div className='table-cont'>
+                <table className='table-redes'>
+                    <tr>
+                        <th>Emp ID</th>
+                        <th>name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th colSpan={3}>Option</th>
+                    </tr>
+                    <tbody className={!isRotating ? "Admin-display-refresh" : "Admin-hide-refresh"}>
 
                         {
                             data.map((item, index) => {
@@ -85,61 +92,67 @@ const AddTelecomperson = () => {
                                     <td>{index + 1}</td>
                                     <td>{item.name}</td>
                                     <td>{item.email}</td>
-                                    <td className='Admin-tele-operation'>
-                                    <Popup
-                                        trigger={<div className='Admin-telecom-edit'><MdEdit /></div>}
-                                        modal
-                                        closeOnDocumentClick
-                                    >
-                                        {close => (
-                                            <div className="popup">
-                                                <h3>Edit Telecom</h3>
-                                                <div className='pop-form'>
-                                                    <input type='' placeholder='password' required />
-                                                    <input type='' placeholder='confirm password' required />
+                                    <td>{item.roltype ===0?"ADMIN":item.roltype==1?"Telecom":"Accountant"}</td>
+                                    <td className='Admin-tele-operation' >
+                                        <Popup
+                                            trigger={<div className='Admin-telecom-edit'><MdEdit /></div>}
+                                            modal
+                                            closeOnDocumentClick
+                                        >
+                                            {close => (
+                                                <div className="popup">
+                                                    <h3>Edit Telecom</h3>
+                                                    <div className='pop-form'>
+                                                       <input type='text' placeholder='Name'/>
+                                                       <input type='text' placeholder='Email '/>
+                                                       <select >
+                                                            <option>Admin</option>
+                                                            <option>Accountant</option>
+                                                            <option>Telecom</option>
+                                                       </select>
+                                                    </div>
+                                                    <div className="actions">
+                                                        <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button>
+                                                        <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
+                                                    </div>
                                                 </div>
-                                                <div className="actions">
-                                                    <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button>
-                                                    <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
+                                            )}
+                                        </Popup>
+                                        <Popup
+                                            trigger={<div className='Admin-telecom-pass'><IoMdEye /></div>}
+                                            modal
+                                            closeOnDocumentClick
+                                        >
+                                            {close => (
+                                                <div className="popup">
+                                                    <h3>Password</h3>
+                                                    <div className='pop-form'>
+                                                        {item.email}
+                                                        <br />
+                                                        {'password'}
+                                                    </div>
+                                                    <div className="actions">
+                                                        {/* <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button> */}
+                                                        <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </Popup>
-                                    <Popup
-                                        trigger={<div className='Admin-telecom-pass'><RiLockPasswordFill /></div>}
-                                        modal
-                                        closeOnDocumentClick
-                                    >
-                                        {close => (
-                                            <div className="popup">
-                                                <h3>Password</h3>
-                                                <div className='pop-form'>
-                                                   {item.email}
-                                                   <br />
-                                                   {'password'}
+                                            )}
+                                        </Popup>
+                                        <Popup
+                                            trigger={<div className='Admin-telecom-delete'> <MdDelete /></div>}
+                                            modal
+                                            closeOnDocumentClick
+                                        >
+                                            {close => (
+                                                <div className="popup">
+                                                    <h2>Do you Want to Delete?</h2>
+                                                    <div className="actions">
+                                                        <button className="admin-header-button" onClick={() => { close(); }}>Yes</button>
+                                                        <button className="admin-header-button" onClick={close}>No</button>
+                                                    </div>
                                                 </div>
-                                                <div className="actions">
-                                                    {/* <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully') }}>Edit</button> */}
-                                                    <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </Popup>
-                                    <Popup
-                                        trigger={<div className='Admin-telecom-delete'> <MdDelete /></div>}
-                                        modal
-                                        closeOnDocumentClick
-                                    >
-                                        {close => (
-                                            <div className="popup">
-                                                <h2>Do you Want to Delete?</h2>
-                                                <div className="actions">
-                                                    <button className="admin-header-button" onClick={() => { close(); }}>Yes</button>
-                                                    <button className="admin-header-button" onClick={close}>No</button>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </Popup>
+                                            )}
+                                        </Popup>
                                     </td>
                                 </tr>)
                             })
@@ -148,19 +161,8 @@ const AddTelecomperson = () => {
                     </tbody>
                 </table>
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </div>
+    </div>
     )
 }
 

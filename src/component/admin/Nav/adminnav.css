@@ -1,40 +1,84 @@
-.Admin-nav-display{
+
+.side-bar{
+    background-color:#171730;
+    width: 15%;
+    height:100%;
+    padding: 1.25rem 1rem ;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgb(134, 124, 124);
-    align-items: center;
-    gap: 20px;
-    padding: 10px;
-    height: 81.5vh;
-    box-shadow: 2px 2px 5px rgb(197, 194, 194);
-    background-color: white;
+    justify-content: space-between;
+    transition: transform 500ms ;
 }
-
-.Admin-nav-display div{
-    color: #000000;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 100%;
-    height: 5vh;
+.side-bar h3{
+    color: white;
+    background-color: #43438a;
+    padding: 2.5rem 0px 1rem 0px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 0px  rgb(68, 68, 68);
+    border-radius: 10px;
+    font-weight: 400;
+   
+}
+.side-bar h3 img {
+ width: 60px;
+ height: 60px;
+ position: absolute;
+ top: 0;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ outline: 8px solid #171730;
+ border-radius: 50%;
+ /* filter: saturate(1); */
+}
+.side-bar ul li{
+  
+    list-style: none;
+    text-decoration: none;
+    color: white;
+    padding: 0.75rem;
+    margin-top: 10px;
     display: flex;
+    gap: 10px;
+    align-items: center;
+    transition: 0.5s;
+    cursor: pointer;
+ 
+}
+.side-bar ul li:hover{
+    background-color: white;
+    color: black;
+}
+.side-bar ul li:active{
+    background-color: white;
+    border-radius: 5px;
+}
+.logout-cont{
+    color: white;
+    display: flex;
+    gap: 10px;
     align-items: center;
     justify-content: center;
-
+    padding: 1rem;
+    text-align: center;
+    background-color: #43438a;
 }
-.Admin-nav-display div:hover{
-    color: #f3efef;
-    border: 2px solid rgba(72, 118, 177, 0.507);
-    background-color: rgba(184, 4, 255, 0.514);
-    /* background-image: linear-gradient(to right ,pink,blue); */
+@media (max-width: 768px) {
+
+.side-bar{
+    position: absolute;
+    width: 50%;
+    z-index: 1;
+    transform: translateX(-100%);
+}
+.side-bar ul li{
+    padding: 0.25rem;
+
+   }
+   .open-side{
+    transform: translateX(0%);
+   }
+}
     
-}
 
-.Admin-navigation-cn{
-    border-bottom: #000000 solid 1px;
-    border: 2px solid black;
-    background-color: rgb(11, 184, 253);
-    background-image: linear-gradient(to right ,pink,blue);
-
-    
-    color: white !important;
-}

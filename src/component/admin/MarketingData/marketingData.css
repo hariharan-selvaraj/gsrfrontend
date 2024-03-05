@@ -138,28 +138,21 @@ table td {
 } */
 
 .Admin-market-bg-green {
-    background-color: green;
-    color: white;
-    border-radius: 20px;
-    border: #000508 solid 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 90%;
-    height: 30px;
+   background-color: rgba(6, 215, 187, 0.679);
+   border-radius: 5px;
+   text-transform: uppercase;
+   color: rgb(12, 157, 138);
+   font-weight: 600;
+ 
 }
 
 .Admin-market-bg-red {
-    background-color: red;
-    border-radius: 20px;
-    color: white;
-    border: #000508 solid 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    height: 30px;
+   
+    background-color: rgba(220, 20, 60, 0.64);
+    border-radius: 5px;
+    text-transform: uppercase;
+    color:rgb(167, 33, 60);
+    font-weight: 600;
 
 }
 
