@@ -50,6 +50,7 @@
     border: 2px solid grey;
 }
 
+
 .Admin-telecom-add:hover {
     background-color: blueviolet;
 }
@@ -83,6 +84,8 @@
 
 table {
   width: 100%;
+  /*border: 2px solid #d1d5db;*/
+
 
 }
 
@@ -91,15 +94,19 @@ table td {
     /* border-radius: 10px; */
     /* padding: 1%;    */
    
-    text-align: center;
+    text-align: left;
     overflow: hidden;
 }
 table th{
     text-transform: uppercase;
-    padding: 1rem;
+    padding: 0.5rem;
+    
+    background-color: #d1d5db;
+    color:black;
 }
 table td{
     padding: 1rem;
+    
 }
 table tr{
     border-bottom: #000508 solid 2px;
@@ -107,8 +114,8 @@ table tr{
 .Admin-tele-operation {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 20px;
+    width: max-content;
 }
 
 .wrapper-container{
@@ -165,6 +172,55 @@ table tr{
 }
 .table-cont{
     background-color: white;
+    padding: 1rem 1rem;
+}
+.popup-content{
+    width:auto;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+}
+.popup1 h3{
+ text-align: center;
+}
+
+.pop-form1{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+.pop-form1 input,select{
+  width:300px;
+  padding: 0.75rem;
+  border: none;
+  background-color: #d1d5db;
+  outline: none;
+}
+.input-cont-logo{
+position: relative;
+}
+.user-logo{
+    position: absolute;
+    right: 0;
+    transform: translate(-50%,50%);
+}
+.pop-form1 select{
+    width:100%;
+    padding: 0.75rem;
+    border: none;
+    background-color: #d1d5db;
+    outline: none;
+  }
+.actions1{
+    padding: 2rem 0px 1rem 0px;
+    display: flex;
+    gap: 20px;
+}
+.actions1 button{
+ background-color: #4242ae;
+ padding: 0.5rem 1rem;
+ text-transform: uppercase;
+
 }
 
 @media screen and (max-width: 768px) {
@@ -189,6 +245,7 @@ table tr{
      
         padding: 0.5rem;
     }
+
     .admin-title{
         position: relative;
     }
@@ -214,5 +271,14 @@ table tr{
         padding: 0.35rem;
         border-radius: 5px;
     }
+    .popup-content{
+        width: 80%;
+        padding: 0.5rem 1.5rem;
+    }
+    .pop-form1 input,select{
+        width:92%;
+       
+      }
+    
  
 }

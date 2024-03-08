@@ -20,6 +20,7 @@ const TeleMainPage = () => {
   const popupRef = useRef(null);
 
 
+
   const [name, setName] = useState("");
   const [phoneno, setPhoneNo] = useState("");
   const [gender, setGender] = useState("");
@@ -266,6 +267,7 @@ const TeleMainPage = () => {
               })}
           </tbody>
         </table>
+    
       </div>
       <ToastContainer
         position="top-right"

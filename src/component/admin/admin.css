@@ -5,6 +5,7 @@
     background-size: cover; */
     display: flex;
     height: 100vh;
+  
 }
 
 
@@ -16,8 +17,10 @@
 .Admin-content{
     margin: 1%;
     width: 85%;
+    overflow-y: auto;
     opacity: 90%;
 }
+
 
 @media (max-width: 768px)
 {

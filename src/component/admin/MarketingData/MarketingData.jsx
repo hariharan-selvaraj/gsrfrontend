@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef} from 'react'
 import './marketingData.css'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -9,6 +9,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 
 import AdminHeader from '../header/AdminHeader';
 import { BiSolidFileExport } from "react-icons/bi";
+
 
 
 
@@ -23,6 +24,16 @@ const MarketingData = ({ handleClick }) => {
     const [isRotating, setRotating] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState(null);
 
+    const [currentPage,setCurrentPage] = useState(1)
+    const recordsPerPage = 6;
+    const lastIndex=currentPage*recordsPerPage;
+    const firstIndex = lastIndex-recordsPerPage;
+    const records =datas.slice(firstIndex,lastIndex)
+    const npages = Math.ceil(datas.length /recordsPerPage)
+    const nextRef=useRef(null);
+    const prevRef=useRef(null);
+    
+ 
     const handlePencil = (id) => {
         setSelectedItemId(id);
     };
@@ -44,13 +55,14 @@ const MarketingData = ({ handleClick }) => {
         const data = JSON.parse(localStorage.getItem('marketing'))
         setDatas(data)
         // Perform your refresh logic here
+       
 
         // Optionally, reset the rotation after some time or when the refresh is complete
         setTimeout(() => {
             setRotating(false);
         }, 1000);
     }
-
+    // console.log(JSON.parse(localStorage.getItem('marketing')));
     // const handlePencil = (id) => {
     //     const data = datas.filter((item) => item.id === Number(id))
     //     setName(data[0].name)
@@ -76,7 +88,20 @@ const MarketingData = ({ handleClick }) => {
         setGender("")
         setComments("")
     }
-
+          const previousPage =()=>{
+              if(currentPage!=1)
+              {
+                setCurrentPage(currentPage-1)
+              }
+          }
+          const nextPage =()=>{
+            if(currentPage!=npages)
+            {
+              setCurrentPage(currentPage+1)
+            }
+           
+          }
+        
 
 
     return (
@@ -113,7 +138,7 @@ const MarketingData = ({ handleClick }) => {
                         <th>Sno</th>
                         <th>customer name</th>
                         <th>telecom name</th>
-                        <th>comments</th>
+                        <th >comments</th>
                         <th>status</th>
                         <th>Correction</th>
 
@@ -123,25 +148,25 @@ const MarketingData = ({ handleClick }) => {
                 <tbody className={!isRotating ? "Admin-display-refresh" : "Admin-hide-refresh"}>
 
                     {
-                        datas.map((item, index) => {
+                        records.map((item, index) => {
                             return (<tr key={item.id}>
-                                <td>{index + 1}</td>
+                                <td>{item.id}</td>
                                 <td>{item.name}</td>
                                 <td>{item.telecom ? item.telecom : "vin"}</td>
-                                <td>{item.comment}</td>
+                                <td className='comments-mark'>{item.comment}</td>
                                 <td ><div className={item.status == 'true' ? "Admin-market-bg-green" : "Admin-market-bg-red"}>{item.status}</div></td>
                                 <td>{item.correction}</td>
 
                                 <td className='Admin-tele-operation'>
                                     <Popup
-                                        trigger={<div className='Admin-telecom-edit'><MdEdit onClick={() => { handlePencil(item.id); handlePencil(item.id) }} /></div>}
+                                        trigger={<div className='Admin-telecom-edit'><MdEdit onClick={() => { handlePencil(item.id); }} /></div>}
                                         modal
                                         closeOnDocumentClick={false}
                                     >
                                         {close => (
                                             <div className="popup">
                                                 <h3>Edit Telecom</h3>
-                                                <div className='pop-form'>
+                                                <div className='pop-form1'>
                                                     <input type='text' placeholder='name' value={name} onChange={(e) => setName(e.target.value)} required />
                                                     <input type='text' placeholder='phone no' value={phoneno} onChange={(e) => setPhoneNo(e.target.value)} required />
                                                     <input type='text' placeholder='comments' value={comment} onChange={(e) => setComments(e.target.value)} required />
@@ -154,7 +179,7 @@ const MarketingData = ({ handleClick }) => {
                                                         <option value={"other"}>others</option>
                                                     </select>
                                                 </div>
-                                                <div className="actions">
+                                                <div className="actions1">
                                                     <button className="Admin-header-button-submit" onClick={() => { close(); toast('edited successfully'); handleEdit(item.id) }}>Edit</button>
                                                     <button className="Admin-header-button-submit" onClick={close}>Cancel</button>
                                                 </div>
@@ -183,6 +208,19 @@ const MarketingData = ({ handleClick }) => {
 
                 </tbody>
             </table>
+            { datas.length>recordsPerPage?(
+            <div className='pagination'>
+            <ul >
+            <li>
+              <a href="#" onClick={previousPage} ref={prevRef}>prev</a>
+            </li>
+                <span className='record-num'>{currentPage}/{npages} </span> 
+             <li>
+              <a href="#" onClick={nextPage} ref={nextRef}>next</a>
+            </li>
+
+          </ul>
+        </div>):""}
             </div>
         </div>
     )

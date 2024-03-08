@@ -32,12 +32,13 @@
   }
   
   .admin-header-button {
-    padding: 10px 20px;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: #4242ae;
+ padding: 0.5rem 1rem;
+ text-transform: uppercase;
+ cursor: pointer;
+ border:none;
+ color: white;
+ border-radius: 4px;
   }
   
   .admin-header-button:hover {

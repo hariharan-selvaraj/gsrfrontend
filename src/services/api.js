@@ -7,3 +7,8 @@ export const LOGIN = BASE_URL +`users/login`;
 //token 
 // users details 
 export const GET_USER = BASE_URL +`users/getUserDetailById`; 
+export const GET_USER_PASSWORD = BASE_URL +`users/getUserPasswordById`; 
+export const GET_ALL_USER = BASE_URL +`users/getUserDetails`;
+export const UPDATE_USER = BASE_URL +`users/updateUserDetailById`;
+export const DELETE_USER = BASE_URL +`users/deleteUserDetailById`; 
+export const UPDATE_ADMIN_PASSWORD = BASE_URL +`users/updateAdminPasswordById`;

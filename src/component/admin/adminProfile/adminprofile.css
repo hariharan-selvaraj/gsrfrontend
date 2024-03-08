@@ -1,0 +1,60 @@
+.admin-info{
+    background-color: white;
+    padding: 2rem 2rem;
+    display: flex;
+    gap: 20px;
+}
+.admin-det h3{
+ display: flex;
+ gap: 20px;
+ align-items: center;
+ font-size: 25px;
+
+}
+.admin-det h3 span{
+    color: #71757d;
+
+}
+.admin-info >*{
+    flex: 1;
+}
+.admin-input{
+    display:flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem  0px;
+
+}
+.admin-input h4{
+    padding: 0;
+    margin: 0;
+}
+.admin-input label{
+    font-weight: 500;
+}
+.btn-cont{
+    padding: 1rem 0px;
+}
+.btn-cont button{
+    border: none;
+    background-color:#4242ae ;
+    color: white;
+    padding: 0.5rem 1rem ;
+    text-transform: uppercase;
+    border-radius: 4px;
+    font-weight: 500;
+
+}
+.loader-cont{
+  
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .admin-info{
+    flex-direction: column;
+    }
+}

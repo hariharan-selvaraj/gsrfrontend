@@ -6,10 +6,10 @@ export const AuthProvider = ({children}) => {
 
     const [isAuthenticate,setIsAuthenticate] =useState(true);
     const Authlogin =()=>{
-        
+      setIsAuthenticate(true)
     }
   return (
-    <AuthContext.Provider value={{isAuthenticate ,Authlogin}} >
+    <AuthContext.Provider value={{isAuthenticate ,Authlogin,setIsAuthenticate}} >
         {children}
     </AuthContext.Provider>
   )

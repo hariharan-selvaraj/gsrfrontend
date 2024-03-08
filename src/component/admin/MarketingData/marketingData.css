@@ -136,7 +136,12 @@ table td {
         width: 100%;
     }
 } */
-
+.comments-mark{
+    overflow-wrap: break-word;
+    max-width:250px;
+    text-align: justify;
+ 
+}
 .Admin-market-bg-green {
    background-color: rgba(6, 215, 187, 0.679);
    border-radius: 5px;
@@ -170,14 +175,30 @@ table td {
     color: #000 !important;
 }
 
-@keyframes rotateAnimation {
-    0% {
-        transform: rotate(0deg);
-    }
 
-    100% {
-        transform: rotate(360deg);
-    }
+.pagination{
+
+}
+.pagination ul{
+    padding: 2rem;
+    list-style: none;
+    display: flex;
+    gap: 30px;  
+    justify-content: end;
+
+}
+.pagination ul li a{
+    text-decoration: none;
+    background-color: #4242ae;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+.record-num{
+    font-weight: 600;
+   
+
+    
 }
 
 .Admin-flex {
