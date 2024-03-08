@@ -345,7 +345,6 @@ const AddTelecomperson = ({ handleClick }) => {
                                                     <h3>Edit Telecom</h3>
                                                     <div className='pop-form1'>
                                                         <input type='text'
-                                                            contentEditable="true"
                                                             placeholder='Name'
                                                             value={updateUser.firstName}
                                                             name='firstName'

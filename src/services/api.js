@@ -12,3 +12,4 @@ export const GET_ALL_USER = BASE_URL +`users/getUserDetails`;
 export const UPDATE_USER = BASE_URL +`users/updateUserDetailById`;
 export const DELETE_USER = BASE_URL +`users/deleteUserDetailById`; 
 export const UPDATE_ADMIN_PASSWORD = BASE_URL +`users/updateAdminPasswordById`;
+export const UPDATE_ADMIN_DETAIL = BASE_URL +`users/updatePersonalDetailById`;
