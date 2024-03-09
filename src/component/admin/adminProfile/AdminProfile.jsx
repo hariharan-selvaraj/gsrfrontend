@@ -9,7 +9,7 @@ import Popup from 'reactjs-popup';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import loader from "../../../Assets/loader.gif"
-import { select } from 'react-cookies';
+
 
 
 const AdminProfile = ({ handleClick }) => {

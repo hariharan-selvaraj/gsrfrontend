@@ -10,6 +10,8 @@ import AdminHeader from '../header/AdminHeader';
 import { BiSolidFileExport } from "react-icons/bi";
 import { DELETE_MARKETING_DATA_ADMIN, GET_MARKETING_DATA_ADMIN, UPDATE_MARKETING_DATA_ADMIN } from '../../../services/api';
 import axios from 'axios';
+import { CSVLink } from 'react-csv';
+// import { CSVDownload } from 'react-csv';
 import loader from "../../../Assets/loader.gif"
 
 
@@ -61,7 +63,8 @@ const MarketingData = ({ handleClick }) => {
             const getAdminDetails = async () => {
                 await axios.get(`${GET_MARKETING_DATA_ADMIN}`, {
                     headers: { 'Authorization': `Bearer ${token}` },
-                }).then((response) => { setDatas(response.data.data); console.log(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
+                }).then((response) => { setDatas(response.data.data);setLoading(true) }
+                ).catch(err => { toast.error("Backend is not available") });
 
             }
             getAdminDetails()
@@ -70,8 +73,6 @@ const MarketingData = ({ handleClick }) => {
             console.log(e)
         }
     }, [refresh])
-
-
 
     useEffect(() => {
         const selectedItem = datas.find(item => item.market_data_id== selectedItemId);
@@ -94,9 +95,7 @@ const MarketingData = ({ handleClick }) => {
                 {
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
-            console.log(deleteRef.current)
-            console.log(response.data.success)
-
+        
             if (response.data.success) {
                 toast('deleted successfully');
                 setRefresh(true);
@@ -125,7 +124,6 @@ const MarketingData = ({ handleClick }) => {
                 status: "true",
             }
             
-            console.log(updateAdmin)
             const response = await axios.patch(UPDATE_MARKETING_DATA_ADMIN, updateAdmin,
                 {
                     headers: { 'Authorization': `Bearer ${token}` },
@@ -163,6 +161,8 @@ const MarketingData = ({ handleClick }) => {
     return (
         <div className='wrapper-container'>
             <AdminHeader handleClick={handleClick} title="MARKETING" />
+            {loading?
+               ( <div>
             <div className='user-info'>
                 <div className='user-operations'>
                     <input type='text' placeholder='Search By Customer Name'
@@ -179,7 +179,8 @@ const MarketingData = ({ handleClick }) => {
                                 <div className="popup">
                                     <h2>Do you Want to Download?</h2>
                                     <div className="actions">
-                                        <button className="admin-header-button" onClick={() => { close(); }}>Yes</button>
+                               
+                                        <CSVLink data={datas}   filename={"Marketing_data.csv"}onClick={()=>{}} className="admin-header-button" >Yes</CSVLink>
                                         <button className="admin-header-button" onClick={close}>No</button>
                                     </div>
                                 </div>
@@ -207,7 +208,7 @@ const MarketingData = ({ handleClick }) => {
 
                         {
                             records.length != 0 ? (records.map((item, index) => {
-                                return (<tr key={item.id}>
+                                return (<tr key={item.market_data_id}>
                                     <td>{item.market_data_id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.telecom ? item.telecom : "vin"}</td>
@@ -262,7 +263,7 @@ const MarketingData = ({ handleClick }) => {
                                         </Popup>
                                     </td>
                                 </tr>)
-                            })) : (<td className="result" colSpan={7}>No Result Found</td>)
+                            })) : (<tr  ><td className="result" colSpan={7}>No Result Found</td></tr>)
                         }
 
                     </tbody>
@@ -280,7 +281,7 @@ const MarketingData = ({ handleClick }) => {
 
                         </ul>
                     </div>) : ""}
-            </div>
+            </div></div>):(<div className='loader-cont'><img src={loader}/></div>)}
             <ToastContainer
                 position="top-right"
                 autoClose={1000}

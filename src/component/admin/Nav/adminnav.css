@@ -72,8 +72,16 @@
     z-index: 1;
     transform: translateX(-100%);
 }
+
+.side-bar ul{
+  
+    text-align: start;
+    width: 100%;
+    box-sizing: border-box;
+
+}
 .side-bar ul li{
-    padding: 0.25rem;
+    padding: 0.15rem;
 
    }
    .open-side{
