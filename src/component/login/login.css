@@ -8,8 +8,11 @@
     justify-content: center;
     gap: 60px;
  
-    
 }
+.login-ico{
+    color: white;
+}
+
 .wrapper-cont{
     width: min(90%,25rem);
     border: 1px solid gray;

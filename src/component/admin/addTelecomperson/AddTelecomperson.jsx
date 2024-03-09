@@ -19,11 +19,22 @@ const AddTelecomperson = ({ handleClick }) => {
 
     const [users, setUsers] = useState([]);
     const [password, setPassword] = useState("");
-    const [isRotating, setRotating] = useState(false);
+    const [refresh,setRefresh] = useState(true);
     const [selectUser, setSelectUserID] = useState("");
     const [newRoleType, setNewRoleType] = useState("");
     const [icons, setIocns] = useState(<FaEyeSlash></FaEyeSlash>)
     const [iconsConfirm, setIconsConfirm] = useState(<FaEyeSlash></FaEyeSlash>)
+    const  [keywords, setKeywords] = useState("")
+    const [currentPage,setCurrentPage] = useState(1)
+    const recordsPerPage = 10;
+    const lastIndex=currentPage*recordsPerPage;
+    const firstIndex = lastIndex-recordsPerPage;
+    const filteredData = users.filter( item=> item.firstname.includes(keywords))
+    const records =filteredData.slice(firstIndex,lastIndex)
+    const npages = Math.ceil(filteredData.length /recordsPerPage)
+    const nextRef=useRef(null);
+    const prevRef=useRef(null);
+
     const [addUser, setAddUser] = useState({
         firstName: "",
         email: "",
@@ -45,6 +56,22 @@ const AddTelecomperson = ({ handleClick }) => {
     const Iconref = useRef(null);
     const Iconref2 = useRef(null);
 
+    const previousPage =()=>{
+        if(currentPage!=1)
+        {
+          setCurrentPage(currentPage-1)
+        }
+      
+        
+    }
+    const nextPage =()=>{
+
+      if(currentPage!=npages && npages !=0  ) 
+      {
+        setCurrentPage(currentPage+1)
+      }
+   
+    }
 
 
     useEffect(() => {
@@ -73,10 +100,10 @@ const AddTelecomperson = ({ handleClick }) => {
             }
         }
 
-    }, [users])
+    }, [refresh])
 
     const addNewUser = async () => {
-
+        setRefresh(false);
         try {
 
             if (handleValidation(addUser)) {
@@ -87,6 +114,7 @@ const AddTelecomperson = ({ handleClick }) => {
 
                     addRef.current.close();
                     toast("User added successfully")
+                    setRefresh(true);
                 }
             }
         }
@@ -101,7 +129,7 @@ const AddTelecomperson = ({ handleClick }) => {
 
     const handleValidation = (user) => {
         const { password, confirmpassword, firstName, email, roleType } = user;
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,}$/
         const trimName = firstName.trim();
 
         if (password == "" || confirmpassword == "" || trimName == "" || email == "") {
@@ -172,7 +200,7 @@ const AddTelecomperson = ({ handleClick }) => {
 
     const update = async (id) => {
 
-
+        setRefresh(false)
         try {
             if (handleValidation(updateUser)) {
                 const token = localStorage.getItem('token');
@@ -186,9 +214,10 @@ const AddTelecomperson = ({ handleClick }) => {
                 if (response.data.success) {
                   
                   console.log(EditRef.current)
-                  if (EditRef.current) {
-                    EditRef.current.close();
-                  }
+            
+                    EditRef.current.click();
+                    setRefresh(true);
+                  
                     toast('edited successfully');
                  
                     
@@ -260,7 +289,9 @@ const AddTelecomperson = ({ handleClick }) => {
             <AdminHeader handleClick={handleClick} title="USERS" />
             <div className='user-info'>
                 <div className='user-operations'>
-                    <input type='text' placeholder='Search By Name'></input>
+                    <input type='text' placeholder='Search By Name'
+                     onChange={(e) => {setKeywords(e.target.value)}}
+                    />
                     <div className='user-op'>
                         <Popup
                             trigger={<span><RiUserAddFill /> Add User</span>}
@@ -324,10 +355,10 @@ const AddTelecomperson = ({ handleClick }) => {
                             <th>Options</th>
                         </tr>
                     </thead>
-                    <tbody className={!isRotating ? "Admin-display-refresh" : "Admin-hide-refresh"}>
+                    <tbody>
 
                         {
-                            users && users.map((item, index) => {
+                            records.length!=0? (records.map((item, index) => {
                                 return (<tr key={index}>
                                     <td>{item.user_id}</td>
                                     <td>{item.firstname}</td>
@@ -338,7 +369,7 @@ const AddTelecomperson = ({ handleClick }) => {
                                             trigger={<div className='Admin-telecom-edit'><MdEdit onClick={() => { handleEdit(item.user_id); handleEdit(item.user_id) }} /></div>}
                                             modal
                                             closeOnDocumentClick={false}
-                                            ref={EditRef}
+                                            
                                         >
                                             {close => (
                                                 <div className="popup">
@@ -385,7 +416,7 @@ const AddTelecomperson = ({ handleClick }) => {
                                                     </div>
                                                     <div className="actions1">
                                                         <button className="Admin-header-button-submit" onClick={() => { update(item.user_id) }}>UPDATE</button>
-                                                        <button className="Admin-header-button-submit" onClick={close}>CANCEL</button>
+                                                        <button className="Admin-header-button-submit" ref={EditRef} onClick={close}>CANCEL</button>
                                                     </div>
                                                 </div>
                                             )}
@@ -427,11 +458,24 @@ const AddTelecomperson = ({ handleClick }) => {
                                         </Popup>
                                     </td>
                                 </tr>)
-                            })
+                            })):(<td colSpan={5} className='result'> No Result Found</td>)
                         }
 
                     </tbody>
                 </table>
+                { users.length>recordsPerPage?(
+            <div className='pagination'>
+            <ul >
+            <li>
+              <a href="#" className={currentPage==1?"deactive":"active"}  onClick={previousPage} ref={prevRef}>prev</a>
+            </li>
+                <span className='record-num'>{currentPage}/{npages} </span> 
+             <li>
+              <a href="#"  className={currentPage==npages?"deactive":"active"}   onClick={nextPage} ref={nextRef}>next</a>
+            </li>
+
+          </ul>
+        </div>):""}
             </div>
         </div>
         <ToastContainer
