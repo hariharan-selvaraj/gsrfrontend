@@ -306,3 +306,4 @@ const updateAdminDetail = async ()=>{
   )
 }
 
+export default Profile;

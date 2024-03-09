@@ -25,8 +25,18 @@ const TeleMainPage = ({handleClick}) => {
   const [phoneno, setPhoneNo] = useState("");
   const [gender, setGender] = useState("");
   const [comment, setComments] = useState("");
-
-
+  const [keywords, setKeywords] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const recordsPerPage = 10;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const filteredData = datas.filter(item => item.name.includes(keywords))
+  const records = filteredData.slice(firstIndex, lastIndex)
+  const npages = Math.ceil(filteredData.length / recordsPerPage)
+  const nextRef = useRef(null);
+  const prevRef = useRef(null);
+  const updatePopupBox = useRef(null);
+   
   const [refresh, setRefresh] = useState(true);
   const [loading, setLoading] = useState(true)
   const updateRef =useRef(null)
@@ -119,13 +129,31 @@ const TeleMainPage = ({handleClick}) => {
 
   };
 
+  const previousPage = () => {
+    if (currentPage != 1) {
+        setCurrentPage(currentPage - 1)
+    }
+
+
+}
+const nextPage = () => {
+
+    if (currentPage != npages && npages != 0) {
+        setCurrentPage(currentPage + 1)
+    }
+
+}
+
+
 
   return (
     <div className="wrapper-container">
       <TelecomHeader handleClick={handleClick} title="Marketing" />
+      {loading?
       <div className="user-info">
         <div className="user-operations">
-      <input type="text" placeholder="search by customer name"/>
+      <input type="text" placeholder="search by customer name" 
+       onChange={(e) => { setKeywords(e.target.value) }}/>
           <div>
             <Popup
               trigger={
@@ -219,8 +247,8 @@ const TeleMainPage = ({handleClick}) => {
             </tr>
           </thead>
           <tbody>
-            {datas &&
-              datas.map((item, index) => {
+            {records.length!=0?
+              records.map((item, index) => {
                 return (
                   <tr key={item.market_data_id}>
                     <td>{item.market_data_id}</td>
@@ -288,13 +316,27 @@ const TeleMainPage = ({handleClick}) => {
                     </td>
                   </tr>
                 );
-              })}
+              }): (<tr  ><td className="result" colSpan={7}>No Result Found</td></tr>)
+            }
           </tbody>
         </table>
+        {datas.length > recordsPerPage ? (
+                    <div className='pagination'>
+                        <ul >
+                            <li>
+                                <a href="#" className={currentPage == 1 ? "deactive" : "active"} onClick={previousPage} ref={prevRef}>prev</a>
+                            </li>
+                            <span className='record-num'>{npages==0?0:currentPage}/{npages} </span>
+                            <li>
+                                <a href="#" className={currentPage == npages ? "deactive" : "active"} onClick={nextPage} ref={nextRef}>next</a>
+                            </li>
+
+                        </ul>
+                    </div>) : ""}
         
         </div>
     
-      </div>
+      </div> :(<div className='loader-cont'><img src={loader}/></div>)}
       <ToastContainer
         position="top-right"
         autoClose={2000}
