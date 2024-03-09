@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useRef} from 'react'
 import './telecom.css'
 import { Outlet, Route, Routes } from 'react-router-dom'
 import TelecomNavigation from './telecomNav/TelecomNavigation'
@@ -7,25 +7,20 @@ import TelecomHeader from './TeleHeader/TelecomHeader'
 import Profile from './profile/Profile'
 
 const Telecom = () => {
+  const sidebar=useRef(null)
+  const handleClick =() => {
+    sidebar.current.classList.add("open-side")
+}
   return (
-    <div className='Telecom-main-display'>
-
-     <TelecomHeader />
-
-        <div className='Telecom-display'>
-        <div className='Telecom-nav'><TelecomNavigation /></div>
-        <div className='Telecom-content'>
-          
+    <div className='Admin-main-display' style={{width:"100%"}}> 
+        <TelecomNavigation sidebar={sidebar} />
+        <div className='Admin-content'> 
         <Routes>
-          <Route path='/' element={<TeleMainPage />} />
-          <Route path='/profile' element={<Profile />} />
-          {/* <Route path='/marketing' element={<MarketingData />} /> */}
-
-
-  
+          <Route path='/' element={<TeleMainPage sidebar={sidebar} handleClick={handleClick}/>} />
+          <Route path='/profile' element={<Profile sidebar={sidebar} handleClick={handleClick} />} />
         </Routes>
 
-        </div>
+      
         </div>
     </div>
 
@@ -33,3 +28,4 @@ const Telecom = () => {
 }
 
 export default Telecom
+
