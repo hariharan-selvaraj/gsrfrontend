@@ -7,27 +7,51 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { IoMdRefresh } from "react-icons/io";
+import TelecomHeader from "../TeleHeader/TelecomHeader";
+import { ADD_MARKET_DATA, GET_TELECOM_MARKET_DATA, UPDATE_MARKET_DATA } from "../../../services/api";
+import { useEffect } from "react";
+import loader from "../../../Assets/loader.gif"
+import axios from 'axios';
 
-const TeleMainPage = () => {
+const TeleMainPage = ({handleClick}) => {
   // const data = [{ name: "vin", phoneno: "3534342",status:'true',gender:"male",comment:"good",correction:"" ,id:0}, { name: "prasanth", phoneno: "25343432",status:'true',gender:"male",comment:"dont call again",correction:"" ,id:1 }, { name: "g", status:'true',correction:""  ,id:2}]
 
   // localStorage.setItem('Marketing',JSON.stringify(data))
 
-  const [datas, setDatas] = useState(
-    JSON.parse(localStorage.getItem("marketing")) || []
-  );
+  const [datas, setDatas] = useState([]);
   const [mistake, setMistake] = useState("");
   const popupRef = useRef(null);
-
-
-
   const [name, setName] = useState("");
   const [phoneno, setPhoneNo] = useState("");
   const [gender, setGender] = useState("");
   const [comment, setComments] = useState("");
-  const [isRotating, setRotating] = useState(false);
 
-  const handleAdd = (e) => {
+
+  const [refresh, setRefresh] = useState(true);
+  const [loading, setLoading] = useState(true)
+  const updateRef =useRef(null)
+  useEffect(() => {
+    setLoading(false)
+    try {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('user_id');
+        const getAdminDetails = async () => {
+            await axios.get(`${GET_TELECOM_MARKET_DATA}/${userId}`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+            }).then((response) => { setDatas(response.data.data); console.log(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
+
+        }
+        getAdminDetails()
+    }
+    catch (e) {
+        console.log(e)
+    }
+}, [refresh])
+
+
+
+  const handleAdd =async (e) => {
+    setRefresh(false);
     e.preventDefault();
     if (name === "" || gender === "" || phoneno === "") {
       return toast.error("Please Enter the Fields !");
@@ -37,68 +61,71 @@ const TeleMainPage = () => {
     if (!phoneRegex.test(phoneno)) {
       return toast.error("Valid phone number");
     } else {
-      const id = datas.length ? datas[datas.length - 1].id + 1 : 1;
-      const AddnewItem = {
-        id,
-        name,
-        phoneno,
-        gender,
-        comment,
-        status: "true",
-        correction: "",
-      };
-      const current = [...datas, AddnewItem];
-      setDatas(current);
+      console.log("data")
+      const token = localStorage.getItem('token');
 
-      localStorage.setItem("marketing", JSON.stringify(current));
-      toast("Insert Successfull");
-      setName("");
-      setPhoneNo("");
-      setComments("");
-      setGender("");
-      popupRef.current.close();
+      const userId = localStorage.getItem('user_id');
+
+      const AddnewItem = {
+        name:name,
+        phoneno:phoneno,
+        gender:gender,
+        comments:comment,
+        user_id:userId
+      };
+      console.log(AddnewItem)
+      try{
+        const response = await axios.post(ADD_MARKET_DATA,AddnewItem,{
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        console.log("class " + response)
+        if (response.data.success) {
+             popupRef.current.close();
+            toast("Data added successfully");
+            setRefresh(true);
+        }
+      }
+    catch(error){
+        toast.error(error.response.data.message)
+    }
+
+ 
+     
     }
   };
 
-  const handleEdit = (id) => {
-    const editedData = datas.map((item) =>
-      item.id === Number(id)
-        ? { ...item, status: "false", correction: mistake }
-        : item
-    );
-    setDatas(editedData);
-    localStorage.setItem("marketing", JSON.stringify(editedData));
-    setMistake("");
+  const handleEdit = async (id) => {
+      setRefresh(false)
+      try{
+        const updateItem ={
+          market_data_id:id,
+          correction:mistake,
+        }
+        const token = localStorage.getItem('token');
+        const response = await axios.patch(UPDATE_MARKET_DATA, updateItem,
+            {
+                headers: { 'Authorization': `Bearer ${token}` },
+            })
+            if(response.data.success){
+              setRefresh(true);
+              toast.success('correction made successfull');
+              updateRef.current.click();
+            }
+      }
+      catch(error){
+        toast.error(error.response.data.message)
+      }
+
+
   };
 
-  const handleRefresh = () => {
-    setRotating(true);
-    const data = JSON.parse(localStorage.getItem("marketing"));
-    setDatas(data);
-    setTimeout(() => {
-      setRotating(false);
-    }, 1000);
-  };
 
   return (
-    <div className="Admin-addTelecom-page">
-      <div className="Admin-telecom-details">
-        <div className="Admin-telecom-header">
-          <label>
-            {" "}
-            <h3>Marketing Data</h3>
-          </label>
-          <div
-            className={`Admin-flex Admin-Refresh`}
-            onClick={() => handleRefresh()}
-          >
-            <IoMdRefresh
-              size={"20px"}
-              id="refresh"
-              className={`${isRotating ? "rotate-color" : "rotate"}`}
-            />
-            Refresh
-          </div>
+    <div className="wrapper-container">
+      <TelecomHeader handleClick={handleClick} title="Marketing" />
+      <div className="user-info">
+        <div className="user-operations">
+      <input type="text" placeholder="search by customer name"/>
           <div>
             <Popup
               trigger={
@@ -114,7 +141,7 @@ const TeleMainPage = () => {
               {(close) => (
                 <div className="popup">
                   <h3>Add Data</h3>
-                  <div className="pop-form">
+                  <div className="pop-form1">
                     <input
                       type="text"
                       placeholder="Name"
@@ -155,7 +182,7 @@ const TeleMainPage = () => {
                       <option value={"other"}>others</option>
                     </select>
                   </div>
-                  <div className="actions">
+                  <div className="actions1">
                     <button
                       className="Admin-header-button-submit"
                       onClick={(e) => {
@@ -177,6 +204,7 @@ const TeleMainPage = () => {
             </Popup>
           </div>
         </div>
+        <div className="table-cont">
         <table className="table-container">
           <thead>
             <tr>
@@ -190,20 +218,16 @@ const TeleMainPage = () => {
               <th>Option</th>
             </tr>
           </thead>
-          <tbody
-            className={
-              !isRotating ? "Admin-display-refresh" : "Admin-hide-refresh"
-            }
-          >
+          <tbody>
             {datas &&
               datas.map((item, index) => {
                 return (
-                  <tr key={item.id}>
-                    <td>{index + 1}</td>
+                  <tr key={item.market_data_id}>
+                    <td>{item.market_data_id}</td>
                     <td>{item.name}</td>
                     <td>{item.phoneno}</td>
                     <td>{item.gender}</td>
-                    <td>{item.comment}</td>
+                    <td>{item.comments}</td>
                     <td>
                       <div
                         className={
@@ -225,11 +249,12 @@ const TeleMainPage = () => {
                         }
                         modal
                         closeOnDocumentClick
+                       
                       >
                         {(close) => (
                           <div className="popup">
                             <h3>Edit Data</h3>
-                            <div className="pop-form">
+                            <div className="pop-form1">
                               <input
                                 type="text"
                                 placeholder="Mistake"
@@ -240,19 +265,18 @@ const TeleMainPage = () => {
                               {/* <input type='' placeholder='phonenumber' required />
                             <input type='' placeholder='comments' required /> */}
                             </div>
-                            <div className="actions">
+                            <div className="actions1">
                               <button
                                 className="Admin-header-button-submit"
                                 onClick={() => {
-                                  close();
-                                  toast("edited successfully");
-                                  handleEdit(item.id);
+                                  handleEdit(item.market_data_id);
                                 }}
                               >
                                 Edit
                               </button>
                               <button
                                 className="Admin-header-button-submit"
+                                ref={updateRef}
                                 onClick={close}
                               >
                                 Cancel
@@ -267,11 +291,13 @@ const TeleMainPage = () => {
               })}
           </tbody>
         </table>
+        
+        </div>
     
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

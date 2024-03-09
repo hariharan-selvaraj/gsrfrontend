@@ -11,18 +11,12 @@ const Telecom = () => {
     sidebar.current.classList.add("open-side")
 }
   return (
-    <div className='Admin-main-display' style={{width:"100%"}}>
-
-       
+    <div className='Admin-main-display' style={{width:"100%"}}> 
         <TelecomNavigation sidebar={sidebar} />
-        <div className='Admin-content'>
-          
+        <div className='Admin-content'> 
         <Routes>
           <Route path='/' element={<TeleMainPage sidebar={sidebar} handleClick={handleClick}/>} />
-          {/* <Route path='/profile' element={<Profile sidebar={sidebar} handleClick={handleClick} />} /> */}
-          {/* <Route path='/marketing' element={<MarketingData sidebar={sidebar} handleClick={handleClick}/>} />
-          <Route path='/profile' element={<AdminProfile sidebar={sidebar} handleClick={handleClick}/>} /> */}
-
+          <Route path='/profile' element={<Profile sidebar={sidebar} handleClick={handleClick} />} />
         </Routes>
 
       
@@ -33,6 +27,4 @@ const Telecom = () => {
 }
 
 export default Telecom
-
-
 

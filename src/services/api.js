@@ -17,3 +17,7 @@ export const UPDATE_ADMIN_DETAIL = BASE_URL +`users/updatePersonalDetailById`;
 export const GET_MARKETING_DATA_ADMIN = BASE_URL +`marketData/getAdminDataDetails`;
 export const DELETE_MARKETING_DATA_ADMIN = BASE_URL +`marketData/deleteAdminDataDetailById`;
 export const UPDATE_MARKETING_DATA_ADMIN = BASE_URL +`marketData/updateAdminDataDetailById`;
+export const GET_TELECOM_MARKET_DATA =  BASE_URL +`marketData/getTelecomDetailById`;
+
+export const ADD_MARKET_DATA = BASE_URL +`marketData/createMarketData`;
+export const UPDATE_MARKET_DATA =BASE_URL+`marketData/updateTelecomDataDetailById`;
