@@ -4,12 +4,14 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    const [isAuthenticate,setIsAuthenticate] =useState(true);
+
+    const [isAuthenticate,setIsAuthenticate] =useState(localStorage.getItem('token'));
+    const [roleType,setRoleType] =useState(localStorage.getItem('roleType'));
     const Authlogin =()=>{
-      setIsAuthenticate(true)
+      // setIsAuthenticate(true)
     }
   return (
-    <AuthContext.Provider value={{isAuthenticate ,Authlogin,setIsAuthenticate}} >
+    <AuthContext.Provider value={{isAuthenticate ,Authlogin,setIsAuthenticate,roleType,setRoleType}} >
         {children}
     </AuthContext.Provider>
   )

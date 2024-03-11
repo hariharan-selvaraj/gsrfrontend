@@ -11,29 +11,35 @@ import { IoMdEye } from "react-icons/io";
 import AdminHeader from '../header/AdminHeader';
 import axios from 'axios';
 import { ADD_USER, DELETE_USER, GET_ALL_USER, GET_USER_PASSWORD, UPDATE_USER } from '../../../services/api';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Routers/AuthContext';
 
 
 
 
 const AddTelecomperson = ({ handleClick }) => {
 
+    const nav=useNavigate()
+    const {isAuthenticate,setIsAuthenticated} = useAuth();
+
+
     const [users, setUsers] = useState([]);
     const [password, setPassword] = useState("");
-    const [refresh,setRefresh] = useState(true);
+    const [refresh, setRefresh] = useState(true);
     const [selectUser, setSelectUserID] = useState("");
     const [newRoleType, setNewRoleType] = useState("");
     const [icons, setIocns] = useState(<FaEyeSlash></FaEyeSlash>)
     const [iconsConfirm, setIconsConfirm] = useState(<FaEyeSlash></FaEyeSlash>)
-    const  [keywords, setKeywords] = useState("")
-    const [currentPage,setCurrentPage] = useState(1)
+    const [keywords, setKeywords] = useState("")
+    const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 10;
-    const lastIndex=currentPage*recordsPerPage;
-    const firstIndex = lastIndex-recordsPerPage;
-    const filteredData = users.filter( item=> item.firstname.includes(keywords))
-    const records =filteredData.slice(firstIndex,lastIndex)
-    const npages = Math.ceil(filteredData.length /recordsPerPage)
-    const nextRef=useRef(null);
-    const prevRef=useRef(null);
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const filteredData = users.filter(item => item.firstname.includes(keywords))
+    const records = filteredData.slice(firstIndex, lastIndex)
+    const npages = Math.ceil(filteredData.length / recordsPerPage)
+    const nextRef = useRef(null);
+    const prevRef = useRef(null);
 
     const [addUser, setAddUser] = useState({
         firstName: "",
@@ -52,25 +58,23 @@ const AddTelecomperson = ({ handleClick }) => {
     })
 
     const addRef = useRef(null)
-    const EditRef =useRef(null)
+    const EditRef = useRef(null)
     const Iconref = useRef(null);
     const Iconref2 = useRef(null);
 
-    const previousPage =()=>{
-        if(currentPage!=1)
-        {
-          setCurrentPage(currentPage-1)
+    const previousPage = () => {
+        if (currentPage != 1) {
+            setCurrentPage(currentPage - 1)
         }
-      
-        
-    }
-    const nextPage =()=>{
 
-      if(currentPage!=npages && npages !=0  ) 
-      {
-        setCurrentPage(currentPage+1)
-      }
-   
+
+    }
+    const nextPage = () => {
+
+        if (currentPage != npages && npages != 0) {
+            setCurrentPage(currentPage + 1)
+        }
+
     }
 
 
@@ -78,15 +82,31 @@ const AddTelecomperson = ({ handleClick }) => {
 
         try {
             const getData = async () => {
-                const token = localStorage.getItem('token');
+                // const token = localStorage.getItem('token');
+                
                 const userId = localStorage.getItem('user_id');
                 await axios.get(`${GET_ALL_USER}`,
                     {
                         headers:
-                            { Authorization: `Bearer ${token}` }
+                            { Authorization: `Bearer ${isAuthenticate}` }
                         ,
                         data: userId,
-                    }).then((res) => { setUsers(res.data.data);console.log(res.data.data) }).catch((error) => { toast.error("Backend is not available") })
+                    }).then((res) => {
+                        if (res.data.data) { setUsers(res.data.data); console.log(res.data.data) }
+                        console.log(res.data)
+                        if(res.data.message=="Invalid Token...")
+                        {
+                            console.log(isAuthenticate)
+                            localStorage.clear()
+                            window.location.reload()
+                            nav("/")
+
+                        }
+                    }).catch((error) => {
+
+                        toast.error("Backend is not available")
+
+                    })
 
             }
             getData()
@@ -212,22 +232,19 @@ const AddTelecomperson = ({ handleClick }) => {
                     })
 
                 if (response.data.success) {
-                  
-                  console.log(EditRef.current)
-            
+
+                    console.log(EditRef.current)
+
                     EditRef.current.click();
                     setRefresh(true);
-                  
                     toast('edited successfully');
-                 
-                    
-                  
+
                 }
             }
         }
         catch (err) {
             toast.error(err.response.data.message)
-            
+
         }
     }
 
@@ -251,7 +268,7 @@ const AddTelecomperson = ({ handleClick }) => {
     }
     let renderIcon = "";
     const showPassword = () => {
-        
+
         if (Iconref.current.type == "password") {
             renderIcon = <FaEye></FaEye>
             Iconref.current.type = "text"
@@ -266,21 +283,21 @@ const AddTelecomperson = ({ handleClick }) => {
         }
     }
 
-   const showConfirmPassword = ()=>{
-    
-    if (Iconref2.current.type == "password") {
-        renderIcon = <FaEye />
-        Iconref2.current.type = "text"
-        setIconsConfirm(renderIcon)
+    const showConfirmPassword = () => {
 
+        if (Iconref2.current.type == "password") {
+            renderIcon = <FaEye />
+            Iconref2.current.type = "text"
+            setIconsConfirm(renderIcon)
+
+        }
+        else {
+            Iconref2.current.type = "password";
+            renderIcon = <FaEyeSlash></FaEyeSlash>
+            setIconsConfirm(renderIcon)
+            console.log(renderIcon)
+        }
     }
-    else {
-        Iconref2.current.type = "password";
-        renderIcon = <FaEyeSlash></FaEyeSlash>
-        setIconsConfirm(renderIcon)
-        console.log(renderIcon)
-    }
-   }
 
 
     return (<div >
@@ -290,7 +307,7 @@ const AddTelecomperson = ({ handleClick }) => {
             <div className='user-info'>
                 <div className='user-operations'>
                     <input type='text' placeholder='Search By Name'
-                     onChange={(e) => {setKeywords(e.target.value)}}
+                        onChange={(e) => { setKeywords(e.target.value) }}
                     />
                     <div className='user-op'>
                         <Popup
@@ -316,14 +333,14 @@ const AddTelecomperson = ({ handleClick }) => {
                                                 name='password'
                                                 ref={Iconref}
                                                 onChange={(e) => setAddUser({ ...addUser, [e.target.name]: e.target.value })} />
-                                               <span className='user-logo' onClick={showPassword}>{icons}</span>
+                                            <span className='user-logo' onClick={showPassword}>{icons}</span>
                                         </div>
                                         <div className='input-cont-logo'>
-                                        <input type='password' placeholder='confirm password' required
-                                               ref={Iconref2}
-                                            name='confirmpassword'
-                                            onChange={(e) => setAddUser({ ...addUser, [e.target.name]: e.target.value })} />
-                                                <span className='user-logo' onClick={showConfirmPassword}>{iconsConfirm}</span>
+                                            <input type='password' placeholder='confirm password' required
+                                                ref={Iconref2}
+                                                name='confirmpassword'
+                                                onChange={(e) => setAddUser({ ...addUser, [e.target.name]: e.target.value })} />
+                                            <span className='user-logo' onClick={showConfirmPassword}>{iconsConfirm}</span>
                                         </div>
                                         <select name='roleType' onChange={(e) => setAddUser({ ...addUser, [e.target.name]: e.target.value })}>
                                             <option value={""}>Select Role Type</option>
@@ -336,7 +353,7 @@ const AddTelecomperson = ({ handleClick }) => {
                                     </div>
                                     <div className="actions1">
                                         <button className="Admin-header-button-submit" onClick={() => { addNewUser() }}>submit</button>
-                                        <button className="Admin-header-button-submit" onClick={ ()=> {close();setIocns(<FaEyeSlash></FaEyeSlash>);setIconsConfirm(<FaEyeSlash></FaEyeSlash>)}}>cancel</button>
+                                        <button className="Admin-header-button-submit" onClick={() => { close(); setIocns(<FaEyeSlash></FaEyeSlash>); setIconsConfirm(<FaEyeSlash></FaEyeSlash>) }}>cancel</button>
                                     </div>
                                 </div>
                             )}
@@ -358,7 +375,7 @@ const AddTelecomperson = ({ handleClick }) => {
                     <tbody>
 
                         {
-                            records.length!=0? (records.map((item, index) => {
+                            records.length != 0 ? (records.map((item, index) => {
                                 return (<tr key={index}>
                                     <td>{item.user_id}</td>
                                     <td>{item.firstname}</td>
@@ -369,7 +386,7 @@ const AddTelecomperson = ({ handleClick }) => {
                                             trigger={<div className='Admin-telecom-edit'><MdEdit onClick={() => { handleEdit(item.user_id); handleEdit(item.user_id) }} /></div>}
                                             modal
                                             closeOnDocumentClick={false}
-                                            
+
                                         >
                                             {close => (
                                                 <div className="popup">
@@ -387,24 +404,24 @@ const AddTelecomperson = ({ handleClick }) => {
                                                             name='email'
                                                             onChange={(e) => setUpdateUser({ ...updateUser, [e.target.name]: e.target.value })}
                                                         />
-                                                      
+
                                                         <input type='password'
                                                             placeholder='Password'
-                                                        
+
                                                             value={updateUser.password}
                                                             name='password'
                                                             onChange={(e) => setUpdateUser({ ...updateUser, [e.target.name]: e.target.value })}
-                                                            
+
                                                         />
-                                                        
+
                                                         <input type='password'
                                                             placeholder='Confirm Password'
-                                                     
+
                                                             value={updateUser.confirmpassword}
                                                             name='confirmpassword'
                                                             onChange={(e) => setUpdateUser({ ...updateUser, [e.target.name]: e.target.value })}
                                                         />
-                                                        
+
 
                                                         <select
                                                             value={newRoleType ? newRoleType : item.roleType}
@@ -444,7 +461,7 @@ const AddTelecomperson = ({ handleClick }) => {
                                             trigger={<div className='Admin-telecom-delete'> <MdDelete /></div>}
                                             modal
                                             closeOnDocumentClick
-                                    
+
                                         >
                                             {close => (
                                                 <div className="popup">
@@ -458,24 +475,24 @@ const AddTelecomperson = ({ handleClick }) => {
                                         </Popup>
                                     </td>
                                 </tr>)
-                            })):(<td colSpan={5} className='result'> No Result Found</td>)
+                            })) : (<td colSpan={5} className='result'> No Result Found</td>)
                         }
 
                     </tbody>
                 </table>
-                { users.length>recordsPerPage?(
-            <div className='pagination'>
-            <ul >
-            <li>
-              <a href="#" className={currentPage==1?"deactive":"active"}  onClick={previousPage} ref={prevRef}>prev</a>
-            </li>
-                <span className='record-num'>{currentPage}/{npages} </span> 
-             <li>
-              <a href="#"  className={currentPage==npages?"deactive":"active"}   onClick={nextPage} ref={nextRef}>next</a>
-            </li>
+                {users.length > recordsPerPage ? (
+                    <div className='pagination'>
+                        <ul >
+                            <li>
+                                <a href="#" className={currentPage == 1 ? "deactive" : "active"} onClick={previousPage} ref={prevRef}>prev</a>
+                            </li>
+                            <span className='record-num'>{currentPage}/{npages} </span>
+                            <li>
+                                <a href="#" className={currentPage == npages ? "deactive" : "active"} onClick={nextPage} ref={nextRef}>next</a>
+                            </li>
 
-          </ul>
-        </div>):""}
+                        </ul>
+                    </div>) : ""}
             </div>
         </div>
         <ToastContainer

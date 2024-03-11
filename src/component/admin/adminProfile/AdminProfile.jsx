@@ -48,7 +48,7 @@ const AdminProfile = ({ handleClick }) => {
       const getAdminDetails = async () => {
        await axios.get(`${GET_USER}/${userId}`, {
           headers: { 'Authorization': `Bearer ${token}` },
-        }).then((response) =>{setAdmin(response.data.data);console.log(response.data.data);setLoading(true)}).catch(err =>{toast.error("Backend is not available")});
+        }).then((response) =>{setAdmin(response.data.data);console.log(response.data.data);setLoading(true)}).catch(err =>{toast.error("Backend is not available");})
       
       }
       getAdminDetails()

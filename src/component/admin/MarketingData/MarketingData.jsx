@@ -13,6 +13,7 @@ import axios from 'axios';
 import { CSVLink } from 'react-csv';
 // import { CSVDownload } from 'react-csv';
 import loader from "../../../Assets/loader.gif"
+import { useAuth } from '../../Routers/AuthContext';
 
 
 const MarketingData = ({ handleClick }) => {
@@ -49,7 +50,7 @@ const MarketingData = ({ handleClick }) => {
 
 
 
-
+    const {getMarketingData,setMarketingData} = useAuth();
 
     const handlePencil = (id) => {
         setSelectedItemId(id);
@@ -73,6 +74,7 @@ const MarketingData = ({ handleClick }) => {
             console.log(e)
         }
     }, [refresh])
+  
 
     useEffect(() => {
         const selectedItem = datas.find(item => item.market_data_id== selectedItemId);
@@ -211,7 +213,7 @@ const MarketingData = ({ handleClick }) => {
                                 return (<tr key={item.market_data_id}>
                                     <td>{item.market_data_id}</td>
                                     <td>{item.name}</td>
-                                    <td>{item.telecom ? item.telecom : "vin"}</td>
+                                    <td>{item.firstname}</td>
                                     <td className='comments-mark'>{item.comments}</td>
                                     <td ><div className={item.status == 'true' ? "Admin-market-bg-green" : "Admin-market-bg-red"}>{item.status}</div></td>
                                     <td>{item.correction}</td>

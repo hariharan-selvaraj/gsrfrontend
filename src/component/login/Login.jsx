@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./login.css"
 import Logo from "../../png/gsr.png"
 import { useNavigate } from 'react-router-dom'
@@ -10,11 +10,12 @@ import { useAuth } from '../Routers/AuthContext'
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { FaRegUserCircle } from "react-icons/fa";
 
+
 const Login = () => {
 
     const nav = useNavigate()
 
-    const { setIsAuthenticate } = useAuth();
+    const { setIsAuthenticate,setRoleType } = useAuth();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -22,6 +23,16 @@ const Login = () => {
     const passwordRef = useRef(null)
     const myref1 = useRef(null)
     const myref2 = useRef(null)
+
+    const {isAuthenticate} = useAuth();
+
+    // useEffect(()=>{
+    //     console.log(isAuthenticate)
+    //    if(isAuthenticate)
+    //    {
+    //     nav("/admin")
+    //    }
+    // },[])
     const handleClick = () => {
         myref1.current.classList.add('open')
 
@@ -33,11 +44,11 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         if (username == "" || password === "") {
-            toast.error('please enter the fields !')
+          return  toast.error('please enter the fields !')
         }
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,}$/
         if ((emailRegex.test(username)) == false) {
-            toast.error("Invalid email Format")
+           return toast.error("Invalid email Format")
         }
 
 
@@ -47,7 +58,12 @@ const Login = () => {
                 await axios.post(LOGIN, { ...loginData }).then(res => {
                     localStorage.setItem('token', res.data.token)
                     localStorage.setItem('user_id', res.data.userID)
-                    res.data.roleType == 0 ? nav("/admin") : res.data.roleType == 1 ? nav("/Telecom") : nav("/")
+                    localStorage.setItem('roleType', res.data.roleType)
+                    setIsAuthenticate(res.data.token)
+                    console.log(res.data.roleType)
+                    setRoleType(res.data.roleType)
+                    res.data.roleType == 0 ? nav("/admin"): res.data.roleType == 1 ? nav("/Telecom") : nav("/")
+
                 }).catch(err => {
                     if (err.code === "ERR_NETWORK") {
 
@@ -57,8 +73,7 @@ const Login = () => {
                         toast.error(err.response.data.message)
                     }
                 });
-                // console.log(data);
-                // setIsAuthenticate(true)
+                
 
             }
             catch (error) {

@@ -57,6 +57,7 @@
 
 .popup h3 {
     text-align: center;
+
 }
 
 .pop-form {
@@ -175,10 +176,10 @@ table tr{
     padding: 1rem 1rem;
 }
 .popup-content{
-    width:auto;
+    width:auto !important;
     padding: 0rem 3rem;
+  
     border-radius: 10px;
-
 }
 .popup1 h3{
  text-align: center;
@@ -196,6 +197,7 @@ table tr{
   padding: 0.75rem;
   border: none;
   background-color: #d1d5db;
+
   outline: none;
 
 }
@@ -204,8 +206,10 @@ position: relative;
 }
 .user-logo{
     position: absolute;
+    top: 0;
     right: 0;
     transform: translate(-50%,50%);
+    z-index: 1;
 }
 .pop-form1 select{
     width:100%;
@@ -263,6 +267,7 @@ position: relative;
         border: none;
         outline: none;
         background-color: #d1d5db;
+        
     }
     .user-op span{
         display: flex;
@@ -275,12 +280,9 @@ position: relative;
         border-radius: 5px;
     }
     .popup-content{
-        width: 80%;
+        width: 80% !important;
         padding: 0.5rem 1.5rem;
    
-    }
-    .pop-form1{
-        overflow-y: auto;
     }
     .pop-form1 input,select{
         width:92%;

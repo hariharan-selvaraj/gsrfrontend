@@ -4,21 +4,24 @@ import Login from './component/login/Login';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 // import TeleMainpage from './component/telecomperson/mainpage/TeleMainpage';
 import Admin from './component/admin/Admin';
-import { AuthProvider } from './component/Routers/AuthContext';
+import { AuthProvider, useAuth } from './component/Routers/AuthContext';
 import PrivateRoute from './component/Routers/PrivateRoute';
 import Telecom from './component/telecomperson/Telecom';
+import PageNotFound from './component/PageNotFound';
 function App() {
+
+  // console.log(roleType);
   return (
     <div>
       <AuthProvider>
         <Router>
           <Routes>
             <Route path='/' element={<Login  />} />
-            <Route path='/admin/*' element={<PrivateRoute>
-              <Admin />
-            </PrivateRoute>} />
-           
-            <Route path='/telecom/*' element={<PrivateRoute>
+            <Route path='*' element={<PageNotFound/>} />
+            <Route path='/admin/*' element={<PrivateRoute allowedRoles="admin">
+                <Admin />
+              </PrivateRoute>} />
+            <Route path='/telecom/*' element={<PrivateRoute allowedRoles="telecom">
               <Telecom />
             </PrivateRoute>} />
           </Routes>
