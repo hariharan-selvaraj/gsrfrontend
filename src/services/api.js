@@ -27,3 +27,8 @@ export const UPDATE_MARKET_DATA =BASE_URL+`marketData/updateTelecomDataDetailByI
 // verify user
 
 export const VERIFY_USER=BASE_URL+`users/checkToken`;
+
+
+// accountant
+
+export const GET_ACCOUNTANT_DATA = BASE_URL +`projectData/getProjectDataDetails`

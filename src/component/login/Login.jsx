@@ -62,7 +62,7 @@ const Login = () => {
                     setIsAuthenticate(res.data.token)
                     console.log(res.data.roleType)
                     setRoleType(res.data.roleType)
-                    res.data.roleType == 0 ? nav("/admin"): res.data.roleType == 1 ? nav("/Telecom") : nav("/")
+                    res.data.roleType == 0 ? nav("/admin"): res.data.roleType == 1 ? nav("/Telecom") : res.data.roleType ==2 ? nav("/accountant") :nav('/')
 
                 }).catch(err => {
                     if (err.code === "ERR_NETWORK") {

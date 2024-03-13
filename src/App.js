@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from './component/Routers/AuthContext';
 import PrivateRoute from './component/Routers/PrivateRoute';
 import Telecom from './component/telecomperson/Telecom';
 import PageNotFound from './component/PageNotFound';
+import Accountant from './component/accountant/Accountant';
 function App() {
 
   // console.log(roleType);
@@ -23,6 +24,9 @@ function App() {
               </PrivateRoute>} />
             <Route path='/telecom/*' element={<PrivateRoute allowedRoles="telecom">
               <Telecom />
+            </PrivateRoute>} />
+            <Route path='/accountant/*' element={<PrivateRoute allowedRoles="accountant">
+              <Accountant />
             </PrivateRoute>} />
           </Routes>
         </Router>

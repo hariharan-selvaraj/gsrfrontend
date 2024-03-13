@@ -5,7 +5,7 @@ import PageNotFound from '../PageNotFound';
 
 const PrivateRoute = ({children, allowedRoles}) => {
     const {isAuthenticate,roleType} = useAuth();
-    console.log(allowedRoles, roleType)
+    console.log("---",allowedRoles, roleType)
    
     console.log("roleTYpe",roleType)
     if(!isAuthenticate){
@@ -19,6 +19,9 @@ const PrivateRoute = ({children, allowedRoles}) => {
       return children
     }
   
+    if (allowedRoles =='accountant' && roleType ==2){
+      return children
+    }
       return <PageNotFound />
   
  
