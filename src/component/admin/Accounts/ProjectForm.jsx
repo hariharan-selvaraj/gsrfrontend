@@ -3,8 +3,12 @@ import React, { useState } from 'react'
 import animationData from "../../../Assets/account.json"
 import { RxCrossCircled } from "react-icons/rx";
 import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import { ADD_PROJECT } from '../../../services/api';
+import { useAuth } from '../../Routers/AuthContext';
 
-const ProjectForm = ({formRef,closeForm}) => {
+const ProjectForm = ({formRef,closeForm,setIsAdded}) => {
+  const {isAuthenticate,setIsAuthenticated} = useAuth();
 
     const [projectDetails,setProjectDetails] =useState({
         project_title:"",
@@ -12,14 +16,23 @@ const ProjectForm = ({formRef,closeForm}) => {
         project_details:""
     })
 
-    const handleSubmit = () =>{
+    const handleSubmit = async() =>{
         if(handleValidationProject())
         {
-         
-            console.log("pass validation")
-            closeForm();
-            setProjectDetails({project_title:"",project_site_location:"",project_details:""})
-           
+         projectDetails.user_id=localStorage.getItem("user_id");
+            await axios.post(ADD_PROJECT,projectDetails,{
+              headers:
+              { Authorization: `Bearer ${isAuthenticate}` }
+            }).then((response)=>{
+                  if(response.data.success) {
+                    closeForm();
+                    setProjectDetails({project_title:"",project_site_location:"",project_details:""})
+                    setIsAdded(true)
+                  }
+
+            }).catch((error)=>{
+              console.log(error)
+            })
         }
     }
 
@@ -30,7 +43,7 @@ const ProjectForm = ({formRef,closeForm}) => {
         toast.error("Enter All the Fields")
         return false
      }
-     const title_regex = /^[a-zA-Z]+$/
+     const title_regex = /^[a-zA-Z ]+$/
      if(title_regex.test(project_title) == false)
      {
         toast.error("please enter a  valid title")

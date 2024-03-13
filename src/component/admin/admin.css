@@ -5,9 +5,7 @@
     background-size: cover; */
     display: flex;
     height: 100vh;
-    overflow: hidden;
-    position: relative;
-   
+
 
   
 }
@@ -22,6 +20,7 @@
     margin: 1%;
     width: 85%;
     overflow-y: auto;
+    overflow-x: hidden;
     opacity: 90%;
  
 }
