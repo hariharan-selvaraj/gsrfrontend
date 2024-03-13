@@ -14,7 +14,7 @@ const Nav = ({sidebar}) => {
   const sideClose =()=>{
     sidebar.current.classList.remove("open-side")
   }
-  // document.getElementById('admin').style.overflowY= 'auto';
+  document.getElementById('admin').style.overflowY= 'auto';
   
   const [isTrue, setIsTrue] = useState(0);
   return (
