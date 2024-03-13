@@ -23,7 +23,7 @@ export const ADD_MARKET_DATA = BASE_URL +`marketData/createMarketData`;
 export const UPDATE_MARKET_DATA =BASE_URL+`marketData/updateTelecomDataDetailById`;
 
 
-
-// verify user
-
-export const VERIFY_USER=BASE_URL+`users/checkToken`;
+// Account section
+export const ADD_PROJECT =BASE_URL+`projectData/createProjectData`;
+export const GET_PROJECT =BASE_URL+`projectData/getProjectDataDetails`;
+export const DELETE_PROJECT =BASE_URL+`projectData/deleteAdminProjectDetailById`;
