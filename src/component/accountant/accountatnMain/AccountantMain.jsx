@@ -1,17 +1,19 @@
-import React ,{ useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { IoMdAddCircle } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEdit } from "react-icons/md";
-import {  GET_ACCOUNTANT_DATA } from "../../../services/api";
+import { GET_ACCOUNTANT_DATA } from "../../../services/api";
 import { useEffect } from "react";
 import loader from "../../../Assets/loader.gif"
 import axios from 'axios';
 import AccountantHeader from '../accountantHeader/AccountantHeader';
 import { useAuth } from '../../Routers/AuthContext';
-const AccountantMain = ({handleClick}) => {
+import './accountantForm.css'
+import AccountantForm from './AccountantForm';
+const AccountantMain = ({ handleClick }) => {
     const [datas, setDatas] = useState([]);
 
     const [keywords, setKeywords] = useState("")
@@ -24,115 +26,103 @@ const AccountantMain = ({handleClick}) => {
     const npages = Math.ceil(filteredData.length / recordsPerPage)
     const nextRef = useRef(null);
     const prevRef = useRef(null);
-     
+
     const [refresh, setRefresh] = useState(true);
     const [loading, setLoading] = useState(true)
-    const {isAuthenticate} = useAuth();
+    const { isAuthenticate } = useAuth();
 
     useEffect(() => {
-      setLoading(false)
-      try {
-          const getAdminDetails = async () => {
-              await axios.get(`${GET_ACCOUNTANT_DATA}`, {
-                  headers: { 'Authorization': `Bearer ${isAuthenticate}` },
-              }).then((response) => { setDatas(response.data.data); console.log(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
-  
-          }
-          getAdminDetails()
-      }
-      catch (e) {
-          console.log(e)
-      }
-  }, [refresh])
-  
-  
-  
+        setLoading(false)
+        try {
+            const getAdminDetails = async () => {
+                await axios.get(`${GET_ACCOUNTANT_DATA}`, {
+                    headers: { 'Authorization': `Bearer ${isAuthenticate}` },
+                }).then((response) => { setDatas(response.data.data); console.log(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
 
-    const formRef=useRef(null)
-    const openForm =()=>{
+            }
+            getAdminDetails()
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }, [refresh])
 
-        formRef.current.classList.add('open-project-form')
-        console.log(formRef.current)
-    }
-    const closeForm =()=>{
-        formRef.current.classList.remove('open-project-form')
-    }
-  
-  
+
     const previousPage = () => {
-      if (currentPage != 1) {
-          setCurrentPage(currentPage - 1)
-      }
-  
-  
-  }
-  const nextPage = () => {
-  
-      if (currentPage != npages && npages != 0) {
-          setCurrentPage(currentPage + 1)
-      }
-  
-  }
-  
-  return (
-    <div className="wrapper-container">
-    <AccountantHeader handleClick={handleClick} title="Accounts Details" />
-    {loading?
-    <div className="user-info">
-      <div className="user-operations">
-    <input type="text" placeholder="search by project Title" 
-     onChange={(e) => { setKeywords(e.target.value) }}/>
-      </div>
-      <div className="table-cont">
-      <table className="table-container">
-        <thead>
-          <tr>
-            <th>Sno</th>
-            <th>Title</th>
-            <th>Site location</th>
-            <th>Details</th>
-            <th>Option</th>
-          </tr>
-        </thead>
-        <tbody>
-          {records.length!=0?
-            records.map((item, index) => {
-              return (
-                <tr key={item.project_id}>
-                  <td>{item.project_id}</td>
-                  <td>{item.project_title}</td>
-                  <td>{item.project_site_location}</td>
-                  <td>{item.project_details}</td>
+        if (currentPage != 1) {
+            setCurrentPage(currentPage - 1)
+        }
 
 
-                  <td className="Admin-tele-operation">
-                          <MdEdit />
-                  </td>
-                </tr>
-              );
-            }): (<tr  ><td className="result" colSpan={7}>No Result Found</td></tr>)
-          }
-        </tbody>
-      </table>
-      {datas.length > recordsPerPage ? (
-                  <div className='pagination'>
-                      <ul >
-                          <li>
-                              <a href="#" className={currentPage == 1 ? "deactive" : "active"} onClick={previousPage} ref={prevRef}>prev</a>
-                          </li>
-                          <span className='record-num'>{npages==0?0:currentPage}/{npages} </span>
-                          <li>
-                              <a href="#" className={currentPage == npages ? "deactive" : "active"} onClick={nextPage} ref={nextRef}>next</a>
-                          </li>
+    }
+    const nextPage = () => {
 
-                      </ul>
-                  </div>) : ""}
-      
-      </div>
-  
-    </div> :(<div className='loader-cont'><img src={loader}/></div>)}
-  </div>
-)
+        if (currentPage != npages && npages != 0) {
+            setCurrentPage(currentPage + 1)
+        }
+
+    }
+
+    return (
+        <div className="wrapper-container">
+            <AccountantHeader handleClick={handleClick} title="Accounts Details" />
+            {loading ?
+                <div className="user-info">
+                    <div className="user-operations">
+                        <input type="text" placeholder="search by project Title"
+                            onChange={(e) => { setKeywords(e.target.value) }} />
+                    </div>
+                    <div className="table-cont">
+                        <table className="table-container">
+                            <thead>
+                                <tr>
+                                    <th>Sno</th>
+                                    <th>Title</th>
+                                    <th>Site location</th>
+                                    <th>Details</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {records.length != 0 ?
+                                    records.map((item, index) => {
+                                        return (
+                                            <tr key={item.project_id}>
+                                                <td>{item.project_id}</td>
+                                                <td>{item.project_title}</td>
+                                                <td>{item.project_site_location}</td>
+                                                <td>{item.project_details}</td>
+
+
+                                                <td className="Admin-tele-operation">
+                                                    <MdEdit />
+
+                                                </td>
+                                            </tr>
+                                        );
+                                    }) : (<tr  ><td className="result" colSpan={7}>No Result Found</td></tr>)
+                                }
+                            </tbody>
+                        </table>
+                        {datas.length > recordsPerPage ? (
+                            <div className='pagination'>
+                                <ul >
+                                    <li>
+                                        <a href="#" className={currentPage == 1 ? "deactive" : "active"} onClick={previousPage} ref={prevRef}>prev</a>
+                                    </li>
+                                    <span className='record-num'>{npages == 0 ? 0 : currentPage}/{npages} </span>
+                                    <li>
+                                        <a href="#" className={currentPage == npages ? "deactive" : "active"} onClick={nextPage} ref={nextRef}>next</a>
+                                    </li>
+
+                                </ul>
+                            </div>) : ""}
+
+                    </div>
+
+                </div> : (<div className='loader-cont'><img src={loader} /></div>)}
+        </div>
+    )
 }
 
 export default AccountantMain

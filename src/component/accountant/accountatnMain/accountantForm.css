@@ -1,0 +1,11 @@
+.accountant-form{
+   transform: translateX(0%);
+}
+.accountant-form-cont{
+    width: 80%;
+    height: 100vh;
+    background-color: red;
+    top: 0;
+    position: absolute;
+}
+
