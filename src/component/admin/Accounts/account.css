@@ -6,7 +6,7 @@
 .cont-cont{
     position: relative;
     height: 100%;
-    overflow-x: hidden;
+
 }
 .add-project
 {
@@ -32,7 +32,7 @@
 .project-form-cont
 {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: absolute;
     background-color:white;
     top: 0;
@@ -113,6 +113,7 @@ outline: none;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    cursor: pointer;
 }
 .project-title h3,h2{
     font-weight:300px;
@@ -122,7 +123,7 @@ outline: none;
 }
 .project-title h2{
     color: rgb(54, 54, 54);
-    font-size: 22px;
+    font-size: 20px;
     text-transform: capitalize;
 }
 .project-title h3{
@@ -148,12 +149,27 @@ outline: none;
     justify-content: center;
     box-shadow: 3px 3px 10px rgb(93, 93, 93);
     transition: all 0.2s;
+    z-index: 111;
 }
 .delete-project:hover{
     color: red;
     background-color: #d1d5db;
 }
-
+.view-project{
+background-color: white;  
+} 
+.viewpage-project-header
+{
+    padding: 1rem;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.viewpage-project-header span
+{
+    font-size: 35px;
+    color: #4242ae;
+}
 @media (max-width: 767px) {
     .add-project{
         width: 100%;

@@ -10,50 +10,29 @@ import AdminProfile from './adminProfile/AdminProfile'
 import axios from 'axios'
 import { VERIFY_USER } from '../../services/api'
 import Account from './Accounts/Account'
+import ViewProject from './Accounts/ViewProject'
 
 const Admin = () => {
   const sidebar=useRef(null)
   const handleClick =() => {
     sidebar.current.classList.add("open-side")
 }
-const nav =useNavigate()
-// useEffect(() =>{
-//   const verify =async () => {
-//     if(!localStorage.getItem('token'))
-//     {
-//       nav("/")
-//     }
-//     else{
-//        const token = localStorage.getItem('token');
-//         const {data} =await axios.post(VERIFY_USER,{
-//           headers: { 'Authorization': `Bearer ${token}` },
-//         })
-      
-//         if(!data.success)
-//         {
-//           nav("/admin")
-//         }
-//         else{
-//              localStorage.clear()
-//              nav("/")
-//         }
-//          console.log(data)
-        
-//     }
-   
-//   }
-//   verify()
-// },[])
+  const nav =useNavigate()
+
+
+
+
   return (
     <div className='Admin-main-display' style={{width:"100%"}}>
         <Nav sidebar={sidebar} />
-        <div className='Admin-content'>
+        <div className='Admin-content' id="admin">
         <Routes>
           <Route path='/' element={<Dashboard sidebar={sidebar} handleClick={handleClick}/>} />
           <Route path='/addTele' element={<AddTelecomperson sidebar={sidebar} handleClick={handleClick} />} />
           <Route path='/marketing' element={<MarketingData sidebar={sidebar} handleClick={handleClick}/>} />
           <Route path='/profile' element={<AdminProfile sidebar={sidebar} handleClick={handleClick}/>} />
           <Route path='/accounts' element={<Account sidebar={sidebar} handleClick={handleClick}/>} />
+          <Route path='/project-transaction' element={<ViewProject />} />
         </Routes>
         </div>
     </div>

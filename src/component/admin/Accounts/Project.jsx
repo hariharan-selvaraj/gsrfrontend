@@ -4,9 +4,11 @@ import { MdDelete } from "react-icons/md";
 import { DELETE_PROJECT } from '../../../services/api';
 import { useAuth } from '../../Routers/AuthContext';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const Project = ({ id, title, location, date ,setIsAdded}) => {
-    const { isAuthenticate, setIsAuthenticated } = useAuth();
+const Project = ({ id, title,desc, location, date ,setIsAdded}) => {
+    const { isAuthenticate, setIsAuthenticated,setProjectTransition } = useAuth();
+    const nav=useNavigate()
     const getDate = () => {
         const utcTimeDate = new Date(date);
         const istTime = utcTimeDate.toLocaleString('en-US', {
@@ -28,8 +30,17 @@ const Project = ({ id, title, location, date ,setIsAdded}) => {
             }
         })
     }
+    const handleOpenProject = () => {
+        setProjectTransition({
+            projectId:id,
+            projectTitle:title,
+            projectLocation:location,
+            projectDescription:desc,
+        })
+        nav("/admin/project-transaction")
+    }
     return (
-        <div className='project-card' key={id}>
+        <div className='project-card' key={id} onClick={handleOpenProject}>
             <div className='project-title'>
                 <h2>{title}</h2>
                 <h3>{location}</h3>

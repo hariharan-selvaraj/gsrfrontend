@@ -8,19 +8,25 @@ import { GET_PROJECT } from '../../../services/api';
 import { useAuth } from '../../Routers/AuthContext';
 import Project from './Project';
 import { ToastContainer } from 'react-toastify';
+import ViewProject from './ViewProject';
 
 const Account = ({handleClick}) => {
     const formRef=useRef(null)
+  
     const [isAdded,setIsAdded] =useState(false);
     const {isAuthenticate,setIsAuthenticated} = useAuth();
     const [projects,setProjects]=useState([])
+   
+    
     const openForm =()=>{
 
         formRef.current.classList.add('open-project-form')
         console.log(formRef.current)
+        document.getElementById('admin').style.overflowY= 'hidden';
     }
     const closeForm =()=>{
         formRef.current.classList.remove('open-project-form')
+        document.getElementById('admin').style.overflowY= 'auto';
     }
 
     useEffect(()=>{
@@ -45,7 +51,7 @@ const Account = ({handleClick}) => {
     <div className='cont-cont'>
         <div className='wrapper-container '>
         <AdminHeader handleClick={handleClick} title="ACCOUNTS" />
-        <div className='create-account-project' >
+           <div className='create-account-project' >
            <div className='add-project' onClick={openForm}>
             <span><FaPlus/></span>
             <h4>Add Project</h4>
@@ -53,8 +59,8 @@ const Account = ({handleClick}) => {
             <div className='all-project-cont'>
              {
                projects && projects.map(project =>{
-                return (<Project  id={project.project_id} title={project.project_title} location={project.project_site_location} date={project.createAt}
-                  setIsAdded={setIsAdded}
+                return (<Project  id={project.project_id} title={project.project_title} desc={project.project_details} location={project.project_site_location} date={project.createAt}
+                  setIsAdded={setIsAdded} 
                 />)
                })
              }
