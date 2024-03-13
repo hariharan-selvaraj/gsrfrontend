@@ -26,7 +26,7 @@ const Nav = ({sidebar}) => {
           <li onClick={() => { nav('/admin'); setIsTrue(0);sideClose()}} className={isTrue === 0 ? "Admin-navigation-cn" : ""}><MdDashboard />Dashboard</li>
           <li onClick={() => { nav('/admin/addTele'); setIsTrue(1);sideClose() }} className={isTrue === 1 ? "Admin-navigation-cn" : ""}><FaUser />User Record</li>
           <li onClick={() => { nav('/admin/marketing'); setIsTrue(2);sideClose() }} className={isTrue === 2 ? "Admin-navigation-cn" : ""}><SiMarketo />Marketing</li>
-          {/* <li onClick={() => { nav('/admin/accounts'); setIsTrue(3);sideClose() }} className={isTrue === 3 ? "Admin-navigation-cn" : ""}><GiCash/>Accounts</li> */}
+          <li onClick={() => { nav('/admin/accounts'); setIsTrue(3);sideClose() }} className={isTrue === 3 ? "Admin-navigation-cn" : ""}><GiCash/>Accounts</li>
           <li onClick={() => { nav('/admin/profile'); setIsTrue(3);sideClose() }} className={isTrue === 3 ? "Admin-navigation-cn" : ""}><CgProfile/>Profile</li>
      </ul>
       </div>

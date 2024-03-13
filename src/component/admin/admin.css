@@ -5,6 +5,10 @@
     background-size: cover; */
     display: flex;
     height: 100vh;
+    overflow: hidden;
+    position: relative;
+   
+
   
 }
 
@@ -19,6 +23,7 @@
     width: 85%;
     overflow-y: auto;
     opacity: 90%;
+ 
 }
 
 

@@ -9,6 +9,7 @@ import { useRef } from 'react'
 import AdminProfile from './adminProfile/AdminProfile'
 import axios from 'axios'
 import { VERIFY_USER } from '../../services/api'
+import Account from './Accounts/Account'
 
 const Admin = () => {
   const sidebar=useRef(null)
@@ -52,6 +53,7 @@ const nav =useNavigate()
           <Route path='/addTele' element={<AddTelecomperson sidebar={sidebar} handleClick={handleClick} />} />
           <Route path='/marketing' element={<MarketingData sidebar={sidebar} handleClick={handleClick}/>} />
           <Route path='/profile' element={<AdminProfile sidebar={sidebar} handleClick={handleClick}/>} />
+          <Route path='/accounts' element={<Account sidebar={sidebar} handleClick={handleClick}/>} />
         </Routes>
         </div>
     </div>

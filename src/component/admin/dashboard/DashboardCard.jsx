@@ -1,5 +1,5 @@
 import React from 'react'
-
+import CountUp from 'react-countup';
 const DashboardCard = ({title ,icon,count}) => {
   return (
     <div className='dash-cont'>
@@ -8,7 +8,7 @@ const DashboardCard = ({title ,icon,count}) => {
         <span>{title}</span>
     </div>
     <div className='count'>
-     {count}
+    <CountUp end={count} duration={2}/>
     </div>
     </div> )
 }
