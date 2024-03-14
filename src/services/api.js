@@ -27,11 +27,10 @@ export const UPDATE_MARKET_DATA =BASE_URL+`marketData/updateTelecomDataDetailByI
 export const ADD_PROJECT =BASE_URL+`projectData/createProjectData`;
 export const GET_PROJECT =BASE_URL+`projectData/getProjectDataDetails`;
 export const DELETE_PROJECT =BASE_URL+`projectData/deleteAdminProjectDetailById`;
-
-
+export const UPDATE_PROJECT =BASE_URL+`projectData/updateAdminProjectDetailById`;
 // transaction
 
-export const GET_ADMIN_TRANSACTION = BASE_URL+`projectTransaction/getAdminProjectDataDetails`;
+export const GET_ADMIN_TRANSACTION = BASE_URL+`projectTransaction/getAdminProjectTransactionDetails`;
 export const UPDATE_TRANSACTION_STATUS = BASE_URL+`projectTransaction/updateAdminApproveProjectTransactionDetailById`;
 export const CREATE_PROJECT_TRANSACTION =BASE_URL +`projectTransaction/createProjectTransactionTransaction`
 export const GET_ACCOUNTANT_TRANSACTION =BASE_URL +`projectTransaction/getAccountantProjectTransactionDetails`

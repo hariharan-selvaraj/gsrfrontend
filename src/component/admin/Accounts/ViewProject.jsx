@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { MdEditSquare } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
@@ -6,15 +6,49 @@ import { useAuth } from '../../Routers/AuthContext';
 import { TiTick } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
 import axios from 'axios';
-import { GET_ADMIN_TRANSACTION, GET_CREDITED_AMOUNT, GET_DEBITED_AMOUNT, UPDATE_TRANSACTION_STATUS } from '../../../services/api';
-
+import { GET_ADMIN_TRANSACTION, GET_CREDITED_AMOUNT, GET_DEBITED_AMOUNT, UPDATE_PROJECT, UPDATE_TRANSACTION_STATUS } from '../../../services/api';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { ToastContainer, toast } from 'react-toastify';
 const ViewProject = () => {
    const nav = useNavigate()
-   const { isAuthenticate, projectTransition } = useAuth();
+   const { isAuthenticate, projectTransition,setProjectTransition } = useAuth();
    const [transaction, setTransaction] = useState([])
    const [refresh, setRefresh] = useState(false)
    const [creditedAmout, setCreditedAmount] = useState(0)
    const [debitedAmount, setDebitedAmount] = useState(0)
+   const [updateProject, setUpdateProject] = useState({
+      project_title: projectTransition.projectTitle,
+      project_details: projectTransition.projectDescription,
+      project_site_location: projectTransition.projectLocation,
+   })
+
+   const updateRef =useRef(null)
+
+   const handleUpdate = async () => {
+
+      updateProject.project_id = projectTransition.projectId
+
+      await axios.patch(UPDATE_PROJECT, updateProject, {
+         headers:
+            { Authorization: `Bearer ${isAuthenticate}` }
+
+      }).then((response) => {
+         if (response.data.success) {
+            toast.success("updated project successfully")  
+            updateRef.current.click()
+            setProjectTransition({
+               projectId:projectTransition.projectId,
+               projectTitle: updateProject.project_title,
+               projectLocation: updateProject.project_site_location,
+               projectDescription:updateProject.project_details,
+            })
+         }
+      }).catch((error) =>{
+         console.error(error)
+      })
+   }
+
    useEffect(() => {
       if (projectTransition.projectId === "") {
          nav("/admin/accounts")
@@ -104,6 +138,10 @@ const ViewProject = () => {
       }).format(number);
 
    }
+
+ console.log(updateProject)
+
+
    return (
       <div>
          <div className='wrapper-container'>
@@ -111,7 +149,49 @@ const ViewProject = () => {
                <span><IoArrowBackCircleOutline onClick={() => { nav("/admin/accounts") }} /></span>
                <h2>{projectTransition.projectTitle}</h2>
 
-               <span><MdEditSquare /></span>
+               {/* <span><MdEditSquare /></span> */}
+
+               <Popup
+                  trigger={<span><MdEditSquare /></span>}
+                  modal
+                  closeOnDocumentClick={false}
+               >
+                  {close => (
+                     <div className="popup">
+                        <h3>Add Employee</h3>
+                        <div className='pop-form1'>
+                           <input
+                              type='text'
+                              placeholder='Project Title' required
+                              name='project_title'
+                              value={updateProject.project_title}
+                              onChange={(e) => setUpdateProject({ ...updateProject, [e.target.name]: e.target.value })} />
+                           <input type='text' placeholder='Project Site Location' required
+                              name='project_site_location'
+                              value={updateProject.project_site_location}
+                              onChange={(e) => setUpdateProject({ ...updateProject, [e.target.name]: e.target.value })} />
+                           <input type='text' placeholder='Project Detail' required
+                              name='project_details'
+                              value={updateProject.project_details}
+                              onChange={(e) => setUpdateProject({ ...updateProject, [e.target.name]: e.target.value })} />
+
+                        </div>
+                        <div className="actions1">
+                           <button className="Admin-header-button-submit" onClick={() => { handleUpdate() }}>submit</button>
+                           <button className="Admin-header-button-submit" ref={updateRef} onClick={() => {
+                              close(); setUpdateProject(
+                                 {
+                                    project_title: projectTransition.projectTitle,
+                                    project_details: projectTransition.projectDescription,
+                                    project_site_location: projectTransition.projectLocation,
+                                 }
+                              )
+                           }}>cancel</button>
+                        </div>
+                     </div>
+                  )}
+               </Popup>
+
             </div>
             <div className='project-info'>
                <div>
@@ -178,10 +258,21 @@ const ViewProject = () => {
                   <span>Debited Rs : {formattedNumber(debitedAmount)}</span>
                </div>
                <div>
-                  Balance Rs : {formattedNumber(creditedAmout-debitedAmount)}
+                  Balance Rs : {formattedNumber(creditedAmout - debitedAmount)}
                </div>
             </div>
          </div>
+         <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark" />
       </div>
    )
 }

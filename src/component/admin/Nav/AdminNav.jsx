@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './adminnav.css'
 import { useNavigate } from 'react-router-dom'
 import { MdDashboard } from "react-icons/md";
@@ -14,7 +14,11 @@ const Nav = ({sidebar}) => {
   const sideClose =()=>{
     sidebar.current.classList.remove("open-side")
   }
-  // document.getElementById('admin').style.overflowY= 'auto';
+  // useEffect(()=>{
+  //   document.getElementById('admin').style.overflowY = 'auto';
+ 
+  // },[])
+ 
   
   const [isTrue, setIsTrue] = useState(0);
   return (
