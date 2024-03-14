@@ -8,7 +8,7 @@ import 'reactjs-popup/dist/index.css';
 
 import { useAuth } from '../../Routers/AuthContext';
 import axios from 'axios';
-import { CREATE_PROJECT_TRANSACTION, GET_ACCOUNTANT_TRANSACTION } from '../../../services/api';
+import { CREATE_PROJECT_TRANSACTION, GET_ACCOUNTANT_TRANSACTION, GET_CREDITED_AMOUNT, GET_DEBITED_AMOUNT } from '../../../services/api';
 import { toast, ToastContainer } from 'react-toastify';
 import loader from "../../../Assets/loader.gif"
 
@@ -72,6 +72,7 @@ const ViewTransaction = () => {
     }
 
     const handleSubmit = async () => {
+        const balance = creditedAmout - debitedAmount
         setRefresh(false)
         try {
             transactions.project_id = projectTransition.projectId;
@@ -82,6 +83,10 @@ const ViewTransaction = () => {
 
             else if (!isNaN(transactions.project_quote) == false) {
                 toast.error("Please enter the Valid amount")
+            }
+
+            else if(balance - transactions.project_quote){
+                toast.error("Invalid or InSuffient Transaction")
             }
 
             else {
@@ -102,6 +107,39 @@ const ViewTransaction = () => {
         }
 
     }
+
+    const [creditedAmout, setCreditedAmount] = useState(0)
+    const [debitedAmount, setDebitedAmount] = useState(0)
+
+    useEffect(() => {
+        const getCreditedAmount = async () => {
+           await axios.get(`${GET_CREDITED_AMOUNT}/${projectTransition.projectId}`, {
+              headers:
+                 { Authorization: `Bearer ${isAuthenticate}` }
+           }).then((response) => {
+              setCreditedAmount(response.data.data[0].credit);
+           }).catch((error) => {
+              console.error(error)
+           });
+        }
+        getCreditedAmount()
+     }, [refresh])
+
+     useEffect(() => {
+        const getDebitedAmount = async () => {
+           await axios.get(`${GET_DEBITED_AMOUNT}/${projectTransition.projectId}`, {
+              headers:
+                 { Authorization: `Bearer ${isAuthenticate}` }
+           }).then((response) => {
+              setDebitedAmount(response.data.data[0].debit);
+           }).catch((error) => {
+              console.error(error)
+           });
+        }
+        getDebitedAmount()
+  
+     }, [refresh])
+  
 
     const formattedNumber = (number) => {
         return new Intl.NumberFormat('en-IN', {
@@ -126,7 +164,7 @@ const ViewTransaction = () => {
                 >
                     {close => (
                         <div className="popup">
-                            <h3>Add Employee</h3>
+                            <h3>Add Transaction  </h3>
                             <div className='pop-form1'>
                                 <input type='text' placeholder='project_quote' required
                                     name='project_quote'
@@ -205,11 +243,11 @@ const ViewTransaction = () => {
             </div>
             <div className='Total_trans'>
                 <div>
-                    <span>Credited Rs : {formattedNumber(0)}</span>
-                    <span>Debited Rs : {formattedNumber(0)}</span>
+                    <span>Credited Rs : {formattedNumber(creditedAmout)}</span>
+                    <span>Debited Rs : {formattedNumber(debitedAmount)}</span>
                 </div>
                 <div>
-                    Balance Rs : {formattedNumber(0)}
+                    Balance Rs : {formattedNumber(creditedAmout - debitedAmount)}
                 </div>
             </div>
             <ToastContainer
