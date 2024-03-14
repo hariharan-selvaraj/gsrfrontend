@@ -6,13 +6,15 @@ import { useAuth } from '../../Routers/AuthContext';
 import { TiTick } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
 import axios from 'axios';
-import { GET_ADMIN_TRANSACTION, UPDATE_TRANSACTION_STATUS } from '../../../services/api';
+import { GET_ADMIN_TRANSACTION, GET_CREDITED_AMOUNT, GET_DEBITED_AMOUNT, UPDATE_TRANSACTION_STATUS } from '../../../services/api';
 
 const ViewProject = () => {
    const nav = useNavigate()
    const { isAuthenticate, projectTransition } = useAuth();
    const [transaction, setTransaction] = useState([])
    const [refresh, setRefresh] = useState(false)
+   const [creditedAmout, setCreditedAmount] = useState(0)
+   const [debitedAmount, setDebitedAmount] = useState(0)
    useEffect(() => {
       if (projectTransition.projectId === "") {
          nav("/admin/accounts")
@@ -44,19 +46,49 @@ const ViewProject = () => {
       return istTime;
 
    }
-
-   const handleApprove =async (status, id) => {
-      setRefresh(false)
-      const updatedStatus ={
-         approve_status: status,
-         project_transaction_id:id,
+   useEffect(() => {
+      const getCreditedAmount = async () => {
+         await axios.get(`${GET_CREDITED_AMOUNT}/${projectTransition.projectId}`, {
+            headers:
+               { Authorization: `Bearer ${isAuthenticate}` }
+         }).then((response) => {
+            setCreditedAmount(response.data.data[0].credit);
+         }).catch((error) => {
+            console.error(error)
+         });
       }
-      await axios.patch(UPDATE_TRANSACTION_STATUS,updatedStatus,{
+      getCreditedAmount()
+   }, [refresh])
+
+
+   useEffect(() => {
+      const getDebitedAmount = async () => {
+         await axios.get(`${GET_DEBITED_AMOUNT}/${projectTransition.projectId}`, {
+            headers:
+               { Authorization: `Bearer ${isAuthenticate}` }
+         }).then((response) => {
+            setDebitedAmount(response.data.data[0].debit);
+         }).catch((error) => {
+            console.error(error)
+         });
+      }
+      getDebitedAmount()
+
+   }, [refresh])
+
+   console.log(debitedAmount)
+
+   const handleApprove = async (status, id) => {
+      setRefresh(false)
+      const updatedStatus = {
+         approve_status: status,
+         project_transaction_id: id,
+      }
+      await axios.patch(UPDATE_TRANSACTION_STATUS, updatedStatus, {
          headers:
             { Authorization: `Bearer ${isAuthenticate}` }
       }).then((response) => {
-         if(response.data.success)
-         {
+         if (response.data.success) {
             setRefresh(true)
          }
       }
@@ -117,7 +149,7 @@ const ViewProject = () => {
                         return (<tr>
                            <td>{transaction.firstname}</td>
                            <td className='trans-date'>{getDate(transaction.createAt)}</td>
-                           <td >{transaction.project_transaction_id}</td>
+                           <td style={{ textAlign: "center" }}>{transaction.project_transaction_id}</td>
 
                            <td style={{ maxWidth: "200px" }}><span className='trans-details'>{
                               transaction.transaction_details
@@ -129,25 +161,26 @@ const ViewProject = () => {
 
                            <td><span className={transaction.approve_status == 1 ? "trans-pending" : transaction.approve_status == 2 ? "trans-approve" : "trans-decline"}>{transaction.approve_status == 1 ? "Pending" : transaction.approve_status == 2 ? "Approved" : "Declined"}</span></td>
                            <td className='trans-actions'>
-                              <span className={transaction.approve_status==1?"approve-btn":"disable-approve-btn"} 
-                               onClick={() => { handleApprove(2, transaction.project_transaction_id) }}><TiTick /></span>
-                               <span className={transaction.approve_status==1?"decline-btn":"disable-decline-btn"}
-                                onClick={() => { handleApprove(0, transaction.project_transaction_id) }}><IoClose /></span></td>
+                              <span className={transaction.approve_status == 1 ? "approve-btn" : "disable-approve-btn"}
+                                 onClick={() => { handleApprove(2, transaction.project_transaction_id) }}><TiTick /></span>
+                              <span className={transaction.approve_status == 1 ? "decline-btn" : "disable-decline-btn"}
+                                 onClick={() => { handleApprove(0, transaction.project_transaction_id) }}><IoClose /></span></td>
                         </tr>)
                      })}
 
                   </tbody>
                </table>
-               <div className='Total_trans'>
-                  <div>
-                     <span>Credited Rs : {formattedNumber(0)}</span>
-                     <span>Debited Rs : {formattedNumber(0)}</span>
-                  </div>
-                  <div>
-                     Balance Rs : {formattedNumber(0)}
-                  </div>
-               </div>
+
             </div>) : (<div style={{ textAlign: "center" }}> No Transaction History</div>)}
+            <div className='Total_trans'>
+               <div>
+                  <span>Credited Rs : {formattedNumber(creditedAmout)}</span>
+                  <span>Debited Rs : {formattedNumber(debitedAmount)}</span>
+               </div>
+               <div>
+                  Balance Rs : {formattedNumber(creditedAmout-debitedAmount)}
+               </div>
+            </div>
          </div>
       </div>
    )

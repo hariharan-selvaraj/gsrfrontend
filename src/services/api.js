@@ -36,3 +36,7 @@ export const UPDATE_TRANSACTION_STATUS = BASE_URL+`projectTransaction/updateAdmi
 export const CREATE_PROJECT_TRANSACTION =BASE_URL +`projectTransaction/createProjectTransactionTransaction`
 export const GET_ACCOUNTANT_TRANSACTION =BASE_URL +`projectTransaction/getAccountantProjectTransactionDetails`
 // transaction status 1- pending ,2-Approve,0-declined 
+export const GET_CREDITED_AMOUNT = BASE_URL+`projectTransaction/getCreditProjectTransactionDetails`;
+export const GET_DEBITED_AMOUNT = BASE_URL+`projectTransaction/getDebitProjectTransactionDetails`;
+
+// transaction status 1- pending ,2-Approve,0-declined 
