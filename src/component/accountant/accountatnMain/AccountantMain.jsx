@@ -38,7 +38,7 @@ const AccountantMain = ({ handleClick }) => {
             const getAdminDetails = async () => {
                 await axios.get(`${GET_PROJECT}`, {
                     headers: { 'Authorization': `Bearer ${isAuthenticate}` },
-                }).then((response) => { setDatas(response.data.data); console.log(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
+                }).then((response) => { setDatas(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
 
             }
             getAdminDetails()
