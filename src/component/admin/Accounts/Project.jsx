@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Project = ({ id, title,desc, location, date ,setIsAdded}) => {
-    const { isAuthenticate, setIsAuthenticated,setProjectTransition } = useAuth();
+    const { isAuthenticate, setProjectTransition } = useAuth();
     const nav=useNavigate()
     const getDate = () => {
         const utcTimeDate = new Date(date);
