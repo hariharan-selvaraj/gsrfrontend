@@ -62,6 +62,15 @@ const ViewTransaction = () => {
 
     const closeRef = useRef()
 
+    const getDate = (date) => {
+        const utcTimeDate = new Date(date);
+        const istTime = utcTimeDate.toLocaleString('en-US', {
+            timeZone: 'Asia/Kolkata'
+        });
+        return istTime;
+
+    }
+
     const handleSubmit = async () => {
         setRefresh(false)
         try {
@@ -91,6 +100,14 @@ const ViewTransaction = () => {
         } catch (error) {
             console.log(error)
         }
+
+    }
+
+    const formattedNumber = (number) => {
+        return new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR'
+        }).format(number);
 
     }
 
@@ -134,6 +151,22 @@ const ViewTransaction = () => {
                 </Popup>
 
             </div>
+            <div className='project-info'>
+                <div>
+                    Project Title : <span>{projectTransition.projectTitle}</span>
+                </div>
+                <div>
+                    Project Id : <span>{projectTransition.projectId}</span>
+                </div>
+
+                <div>
+                    Project Site Location : <span>{projectTransition.projectLocation}</span>
+                </div>
+
+                <div>
+                    Project Details :  <span>{projectTransition.projectDescription}</span>
+                </div>
+            </div>
             <div className='viewpage-trans'>TRANSACTION</div>
             <div className='trans-table-cont'>
                 <table className='trans-table'>
@@ -150,15 +183,17 @@ const ViewTransaction = () => {
                     {loading ?
                         <tbody>
                             {
-                                datas.length > 0 ? datas.map((item) => {
+                                datas.length > 0 ? datas.map((transaction) => {
                                     return (
-                                        <tr key={item.project_transaction_id}>
-                                            <td>{item.project_transaction_id}</td>
-                                            <td>{item.createAt}</td>
-                                            <td>{item.transaction_details}</td>
-                                            <td>{item.transaction_type}</td>
-                                            <td>{item.project_quote}</td>
-                                            <td><span className='trans-status-pending'>{item.approve_status}</span></td>
+                                        <tr key={transaction.project_transaction_id}>
+                                            <td style={{ textAlign: "center" }}>{transaction.project_transaction_id}</td>
+                                            <td className='trans-date'>{getDate(transaction.createAt)}</td>
+                                            <td style={{ maxWidth: "200px" }}><span className='trans-details'>{
+                                                transaction.transaction_details
+                                            }</span></td>
+                                            <td>{transaction.transaction_type === "cr" ? "Credit" : "Debit"}</td>
+                                            <td><span className={transaction.transaction_type == "cr" ? "trans-amount-cr" : "trans-amount-db"}> {transaction.transaction_type == "cr" ? `${formattedNumber(transaction.project_quote)} ` : `${formattedNumber(transaction.project_quote)}`}</span></td>
+                                            <td><span className={transaction.approve_status == 1 ? "trans-pending" : transaction.approve_status == 2 ? "trans-approve" : "trans-decline"}>{transaction.approve_status == 1 ? "Pending" : transaction.approve_status == 2 ? "Approved" : "Declined"}</span></td>
                                         </tr>
                                     )
                                 }) : (<td style={{ textAlign: "center" }} colSpan={6}> No Transaction History</td>)
@@ -166,6 +201,16 @@ const ViewTransaction = () => {
                         </tbody>
                         : (<div className='loader-cont'><img src={loader} /></div>)}
                 </table>
+
+            </div>
+            <div className='Total_trans'>
+                <div>
+                    <span>Credited Rs : {formattedNumber(0)}</span>
+                    <span>Debited Rs : {formattedNumber(0)}</span>
+                </div>
+                <div>
+                    Balance Rs : {formattedNumber(0)}
+                </div>
             </div>
             <ToastContainer
                 position="top-right"

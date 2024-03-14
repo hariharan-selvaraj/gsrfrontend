@@ -12,6 +12,7 @@ import axios from 'axios';
 import AccountantHeader from '../accountantHeader/AccountantHeader';
 import { useAuth } from '../../Routers/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import './accountmain.css'
 const AccountantMain = ({ handleClick }) => {
 
     const nav= useNavigate()
@@ -99,11 +100,13 @@ const AccountantMain = ({ handleClick }) => {
                                                 <td>{item.project_details}</td>
 
 
-                                                <td className="Admin-tele-operation">
-                                                    <MdEdit onClick={() => {
+                                                <td className="Admin-tele-operation accoutant-edit-btn" style={{textAlign:"center"}}>
+                                                <MdEdit onClick={() => {
                                                         setProjectTransition({
                                                             projectId: item.project_id,
                                                             projectTitle: item.project_title,
+                                                            projectLocation:item.project_site_location,
+                                                            projectDescription:item.project_details
                                                         });handleEdit()
                                                     }} />
 
