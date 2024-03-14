@@ -32,5 +32,7 @@ export const DELETE_PROJECT =BASE_URL+`projectData/deleteAdminProjectDetailById`
 
 export const GET_ADMIN_TRANSACTION = BASE_URL+`projectTransaction/getAdminProjectDataDetails`;
 export const UPDATE_TRANSACTION_STATUS = BASE_URL+`projectTransaction/updateAdminApproveProjectTransactionDetailById`;
+export const GET_CREDITED_AMOUNT = BASE_URL+`projectTransaction/getCreditProjectTransactionDetails`;
+export const GET_DEBITED_AMOUNT = BASE_URL+`projectTransaction/getDebitProjectTransactionDetails`;
 
 // transaction status 1- pending ,2-Approve,0-declined 
