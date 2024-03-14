@@ -6,6 +6,7 @@
 .cont-cont{
     position: relative;
     height: 100%;
+    
 
 }
 .add-project
@@ -223,8 +224,125 @@ outline: none;
  color: rgb(188, 188, 54);
  padding: 0.25rem 0.5rem;
  font-weight: 500;
-
  border-radius: 5px;
+}
+.trans-date{
+    font-size: 13px;
+    font-weight: 600;
+}
+.trans-details{
+
+    text-align: justify;
+}
+.trans-amount-cr{
+    color: green;
+    font-weight: 600;
+}
+.trans-amount-db{
+    color: red;
+    font-weight: 600;
+ 
+}
+.trans-approve
+{
+    background-color: rgb(157, 237, 157);
+    color: rgb(1, 171, 1);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+}
+.trans-pending{
+    background-color:rgb(235, 203, 143);
+    color: rgb(196, 132, 14);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+}
+.trans-decline{
+    color:red;
+    background-color: rgb(232, 159, 159);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+}
+.trans-actions{
+    display: flex;
+    gap:10px;
+}
+.approve-btn{
+    color:#42acb7;
+    background-color: #b8dae0;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+    cursor:pointer;
+}
+.disable-approve-btn{
+    color:rgb(141, 141, 141);
+    background-color: rgb(169, 169, 169);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+    pointer-events: none;
+}
+.trans-table th{
+    font-size: 13px;
+    text-align: center;
+    font-weight: 700;    
+}
+.approve-btn:hover{
+    background-color: #42acb7;
+    color: white;
+}
+.decline-btn{
+    color:red;
+    background-color: rgb(232, 159, 159);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+}
+.disable-decline-btn{
+    color:rgb(141, 141, 141);
+    background-color: rgb(169, 169, 169);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+    pointer-events:none;
+}
+.decline-btn:hover{
+    background-color: red;
+    color: white;
+}
+.Total_trans{
+    background-color: rgb(141, 209, 141);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.Total_trans div{
+    color: rgb(4, 100, 4);
+    font-weight: 600;
+
+}
+.Total_trans div:first-child{
+    display: flex;
+    gap: 20px;
 }
 @media (max-width: 767px) {
     .add-project{
