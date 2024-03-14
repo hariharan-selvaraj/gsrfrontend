@@ -27,8 +27,4 @@ export const UPDATE_MARKET_DATA =BASE_URL+`marketData/updateTelecomDataDetailByI
 export const ADD_PROJECT =BASE_URL+`projectData/createProjectData`;
 export const GET_PROJECT =BASE_URL+`projectData/getProjectDataDetails`;
 export const DELETE_PROJECT =BASE_URL+`projectData/deleteAdminProjectDetailById`;
-
-
-// accountant
-
-export const GET_ACCOUNTANT_DATA = BASE_URL +`projectData/getProjectDataDetails`
+export const CREATE_PROJECT_TRANSACTION =BASE_URL +``

@@ -170,6 +170,18 @@ background-color: white;
     font-size: 35px;
     color: #4242ae;
 }
+.trans{
+    background-color: #4242ae;
+    font-size: 18px !important;
+    padding: 0.5rem 0.75rem;
+    text-transform: capitalize;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-radius: 5px;
+    color: white !important;
+    cursor: pointer;
+}
 @media (max-width: 767px) {
     .add-project{
         width: 100%;

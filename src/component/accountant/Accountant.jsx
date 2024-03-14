@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import AccountantNav from './accountantNav/AccountantNav'
 import AccountantProfile from './accountantProfile/AccountantProfile'
 import AccountantMain from './accountatnMain/AccountantMain'
+import ViewTransaction from './accountatnMain/ViewTransaction'
 
 const Accountant = () => {
     const sidebar = useRef(null)
@@ -16,6 +17,8 @@ const Accountant = () => {
                 <Routes>
                     <Route path='/' element={<AccountantMain sidebar={sidebar} handleClick={handleClick} />} />
                     <Route path='/profile' element={<AccountantProfile sidebar={sidebar} handleClick={handleClick} />} />
+                    <Route path='/project-transaction' element={<ViewTransaction sidebar={sidebar} handleClick={handleClick} />} />
+
                 </Routes>
 
 

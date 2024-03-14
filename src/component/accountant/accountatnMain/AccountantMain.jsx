@@ -5,15 +5,16 @@ import { IoMdAddCircle } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEdit } from "react-icons/md";
-import { GET_ACCOUNTANT_DATA } from "../../../services/api";
+import { GET_PROJECT } from "../../../services/api";
 import { useEffect } from "react";
 import loader from "../../../Assets/loader.gif"
 import axios from 'axios';
 import AccountantHeader from '../accountantHeader/AccountantHeader';
 import { useAuth } from '../../Routers/AuthContext';
-import './accountantForm.css'
-import AccountantForm from './AccountantForm';
+import { useNavigate } from 'react-router-dom';
 const AccountantMain = ({ handleClick }) => {
+
+    const nav= useNavigate()
     const [datas, setDatas] = useState([]);
 
     const [keywords, setKeywords] = useState("")
@@ -29,13 +30,13 @@ const AccountantMain = ({ handleClick }) => {
 
     const [refresh, setRefresh] = useState(true);
     const [loading, setLoading] = useState(true)
-    const { isAuthenticate } = useAuth();
+    const { isAuthenticate,setProjectTransition } = useAuth();
 
     useEffect(() => {
         setLoading(false)
         try {
             const getAdminDetails = async () => {
-                await axios.get(`${GET_ACCOUNTANT_DATA}`, {
+                await axios.get(`${GET_PROJECT}`, {
                     headers: { 'Authorization': `Bearer ${isAuthenticate}` },
                 }).then((response) => { setDatas(response.data.data); console.log(response.data.data); setLoading(true) }).catch(err => { toast.error("Backend is not available") });
 
@@ -61,6 +62,10 @@ const AccountantMain = ({ handleClick }) => {
             setCurrentPage(currentPage + 1)
         }
 
+    }
+
+    const handleEdit = () => {
+        nav("/accountant/project-transaction")
     }
 
     return (
@@ -95,7 +100,12 @@ const AccountantMain = ({ handleClick }) => {
 
 
                                                 <td className="Admin-tele-operation">
-                                                    <MdEdit />
+                                                    <MdEdit onClick={() => {
+                                                        setProjectTransition({
+                                                            projectId: item.project_id,
+                                                            projectTitle: item.project_title,
+                                                        });handleEdit()
+                                                    }} />
 
                                                 </td>
                                             </tr>
