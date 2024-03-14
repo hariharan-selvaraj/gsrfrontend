@@ -27,3 +27,10 @@ export const UPDATE_MARKET_DATA =BASE_URL+`marketData/updateTelecomDataDetailByI
 export const ADD_PROJECT =BASE_URL+`projectData/createProjectData`;
 export const GET_PROJECT =BASE_URL+`projectData/getProjectDataDetails`;
 export const DELETE_PROJECT =BASE_URL+`projectData/deleteAdminProjectDetailById`;
+
+// transaction
+
+export const GET_ADMIN_TRANSACTION = BASE_URL+`projectTransaction/getAdminProjectDataDetails`;
+export const UPDATE_TRANSACTION_STATUS = BASE_URL+`projectTransaction/updateAdminApproveProjectTransactionDetailById`;
+
+// transaction status 1- pending ,2-Approve,0-declined 

@@ -34,7 +34,7 @@
         background-color:#171730;
         padding: 1rem;
         left: 50%;
-        transform: translate(-50%, -100%);
+        transform: translate(-50%, -50%);
 }
 .wrapper-cont .input{
   width: 100%;

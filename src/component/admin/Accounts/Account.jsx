@@ -45,7 +45,8 @@ const Account = ({handleClick}) => {
       getAllProjects()
     },[isAdded])
 
-    console.log(projects)
+
+   
 
   return (
     <div className='cont-cont'>
